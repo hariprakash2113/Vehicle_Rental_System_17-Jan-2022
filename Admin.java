@@ -61,13 +61,13 @@ public class Admin {
         char c = Main.sc.nextLine().charAt(0);
         switch (c) {
             case 'a':
-                // Vehicle.addBook(ind);
+                // Vehicle.addVehicle(ind);
                 break;
             case 'b':
                 // Vehicle.modify(ind);
                 break;
             case 'c':
-                // Vehicle.deleteBook(ind);
+                // Vehicle.removeVehicle(ind);
                 break;
             case 'd':
                 addNewAdmin(ind);
@@ -82,7 +82,7 @@ public class Admin {
                 // Vehicle.searchVehicle(ind);
                 break;
             case 'h':
-                // User.changaAmount(ind);
+                // User.changeAmount(ind);
                 break;
             case 'i':
                 // Book.generateReport(ind);
