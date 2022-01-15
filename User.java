@@ -1,12 +1,17 @@
 public class User {
+    String name;
     String email;
     String pass;
+    String mobile;
+    String Address;
     Integer wallet = 50000;
 
-    public User(String email, String pass, Integer wallet) {
+    public User(String name, String email, String pass, String mobile, String address) {
+        this.name = name;
         this.email = email;
         this.pass = pass;
-        this.wallet = wallet;
+        this.mobile = mobile;
+        Address = address;
     }
 
     public static void login() {
@@ -19,7 +24,7 @@ public class User {
         int n = Integer.parseInt(Main.sc.nextLine());
 
         if (n == 1) {
-            // userSignUp();
+            userSignUp();
         }
 
         else if (n == 2) {
@@ -37,6 +42,29 @@ public class User {
             login();
         }
 
+    }
+
+    static void userSignUp() {
+        System.out.print("\033[H\033[2J");
+        System.out.println("-----New User SignUp----");
+        System.out.print("Enter Your name or 0 to  exit: ");
+        String name = Main.sc.nextLine();
+        if (name.equals("0")) {
+            login();
+        }
+        System.out.print("Enter Your Email : ");
+        String email = Main.sc.nextLine();
+        System.out.print("Enter Password : ");
+        String pass = Main.sc.nextLine();
+        System.out.print("Enter Mobile Number : ");
+        String mobile = Main.sc.nextLine();
+        System.out.print("Enter Address : ");
+        String address = Main.sc.nextLine();
+        Main.users.add(new User(name, email, pass, mobile, address));
+        System.out.println("Account has been Created Successfully !\nLogin to continue");
+        System.out.println("Press any key to continue......");
+        Main.sc.nextLine();
+        login();
     }
 
 }

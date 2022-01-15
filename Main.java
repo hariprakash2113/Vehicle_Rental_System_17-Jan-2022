@@ -10,6 +10,8 @@ public class Main {
     }
 
     static List<Admin> admins = new ArrayList<>();
+    
+    static List<User> users = new ArrayList<>();
 
     static{
         admins.add(new Admin("Hari Prakash", "hari", "1108"));
@@ -19,7 +21,7 @@ public class Main {
         System.out.print("\033[H\033[2J");
         System.out.println("------Vehicle Rental System Application----------");
         System.out.println("    -> Enter 1 for Admin Login");
-        System.out.println("    -> Enter 2 for User Login");
+        System.out.println("    -> Enter 2 for Customer Actions");
         System.out.println("    -> Enter 3 to Quit Application");
         System.out.print("Enter Choice :  ");
         int n = Integer.parseInt(sc.nextLine());
@@ -27,7 +29,7 @@ public class Main {
             Admin.login();
         }
         else if(n==2){
-            // User.userType();
+            User.login();
         }
         else if(n==3){
             System.exit(0);
