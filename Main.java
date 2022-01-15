@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -5,6 +7,12 @@ public class Main {
     static Scanner sc = new Scanner(System.in);
     public static void main(String[] args) {
         homepage();
+    }
+
+    static List<Admin> admins = new ArrayList<>();
+
+    static{
+        admins.add(new Admin("Hari Prakash", "hari", "1108"));
     }
 
     public static void homepage(){
@@ -16,7 +24,7 @@ public class Main {
         System.out.print("Enter Choice :  ");
         int n = Integer.parseInt(sc.nextLine());
         if(n==1){
-            // Admin.login();
+            Admin.login();
         }
         else if(n==2){
             // User.userType();
