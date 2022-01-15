@@ -70,7 +70,7 @@ public class Admin {
                 // Vehicle.deleteBook(ind);
                 break;
             case 'd':
-                // addNewAdmin(ind);
+                addNewAdmin(ind);
                 break;
             case 'e':
                 //Vehicle.viewBikes(ind);
@@ -96,6 +96,28 @@ public class Admin {
                 System.out.println("Press any key to continue......");
                 Main.sc.nextLine();
                 adminPage(ind);
+        }
+    }
+
+    static void addNewAdmin(int ind) {
+        System.out.print("\033[H\033[2J");
+        System.out.println("-----Add new Admin-----");
+        System.out.print("Enter new Admin name or 0 to  exit: ");
+        String name = Main.sc.nextLine();
+        if (name.equals("0"))
+            adminPage(ind);
+        System.out.print("Enter Email of New Admin : ");
+        String email = Main.sc.nextLine();
+        System.out.print("Enter Password of New Admin : ");
+        String password = Main.sc.nextLine();
+        Main.admins.add(new Admin(name, email,password));
+        System.out.printf("Admin %s has been Successfully Added\n", name);
+        System.out.println("Enter 1 to add one another Admin else any other key for returing to to Admin page");
+        String n =Main.sc.nextLine();
+        if (n .equals("1")) {
+            addNewAdmin(ind);
+        } else {
+            adminPage(ind);
         }
     }
 
