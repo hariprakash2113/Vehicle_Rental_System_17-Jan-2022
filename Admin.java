@@ -48,7 +48,7 @@ public class Admin {
         System.out.printf("----Welcome , %s -----\n", Main.admins.get(ind).name);
         System.out.println("Please Select an option");
         System.out.println("    -> Enter a for Adding a Vehicle");
-        System.out.println("    -> Enter b to Moify Vehicle details");
+        System.out.println("    -> Enter b to Modify Vehicle details");
         System.out.println("    -> Enter c for Removing a vehicle");
         System.out.println("    -> Enter d to Add a admin");
         System.out.println("    -> Enter e to view List of Bikes");
@@ -56,7 +56,8 @@ public class Admin {
         System.out.println("    -> Enter g to search a Vehicle");
         System.out.println("    -> Enter h to Change Security Deposit Amount of User");
         System.out.println("    -> Enter i to Generate reports");
-        System.out.println("    -> Enter j to Logout");
+        System.out.println("    -> Enter j to change your password");
+        System.out.println("    -> Enter k to Logout");
         System.out.print("Enter Choice : ");
         char c = Main.sc.nextLine().charAt(0);
         switch (c) {
@@ -88,6 +89,9 @@ public class Admin {
                 // Book.generateReport(ind);
                 break;
             case 'j':
+                changePassword(ind);
+                break;
+            case 'k':
                 Main.homepage();
                 break;
             default:
@@ -96,6 +100,28 @@ public class Admin {
                 System.out.println("Press any key to continue......");
                 Main.sc.nextLine();
                 adminPage(ind);
+        }
+    }
+
+    static void changePassword(int ind) {
+        System.out.print("\033[H\033[2J");
+        System.out.print("Enter old Password or 0 to exit : ");
+        String oldPass = Main.sc.nextLine();
+        if (oldPass.equals("0")) {
+            adminPage(ind);
+        }
+        if (Main.admins.get(ind).password.equals(oldPass)) {
+            System.out.print("Enter new Password : ");
+            Main.admins.get(ind).password = Main.sc.nextLine();
+            System.out.println("Your Password has been Upated\nYou have been logged out");
+            System.out.println("Press any key to continue......");
+            Main.sc.nextLine();
+            login();
+        } else {
+            System.out.println("Enter your Old Password Correctly");
+            System.out.println("Press any key to continue......");
+            Main.sc.nextLine();
+            changePassword(ind);
         }
     }
 
