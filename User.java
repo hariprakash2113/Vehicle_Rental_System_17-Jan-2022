@@ -4,7 +4,7 @@ public class User {
     String pass;
     String mobile;
     String Address;
-    Integer wallet = 50000;
+    Integer wallet = 30000;
 
     public User(String name, String email, String pass, String mobile, String address) {
         this.name = name;

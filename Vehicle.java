@@ -9,12 +9,12 @@ public class Vehicle {
 
     static {
         ArrayList<Car> x = new ArrayList<>();
-        x.add(new Car("carName", "numberPlate", 4, Main.admins.get(0), 3000));
-        x.add(new Car("carName1", "numberPlate2", 4, Main.admins.get(0), 3000));
+        x.add(new Car("carName", "numberPlate", 4, Main.admins.get(0), 3000,100000));
+        x.add(new Car("carName1", "numberPlate2", 4, Main.admins.get(0), 3000,100000));
         cars.put("i10", x);
         ArrayList<Bike> y = new ArrayList<>();
-        y.add(new Bike("bikeName", "numberPlate", Main.admins.get(0), 500));
-        y.add(new Bike("bikeName1", "numberPlate1", Main.admins.get(0), 500));
+        y.add(new Bike("bikeName", "numberPlate", Main.admins.get(0), 500,500000));
+        y.add(new Bike("bikeName1", "numberPlate1", Main.admins.get(0), 500,500000));
         bikes.put("sp125", y);
     }
 
@@ -57,13 +57,15 @@ public class Vehicle {
         if (bikes.containsKey(bikeName)) {
             ArrayList<Bike> tp = bikes.get(bikeName);
             tp.add(new Bike(bikeName, numberPlate, Main.admins.get(ind),
-                    bikes.get(bikeName).get(0).rentPerDay));
+                    bikes.get(bikeName).get(0).rentPerDay,bikes.get(bikeName).get(0).priceOfBike));
             bikes.put(bikeName, tp);
         } else {
+            System.out.print("Enter Price of Bike : ");
+            int priceOfBike = Integer.parseInt(Main.sc.nextLine());
             System.out.print("Enter Rent per Day : ");
             int rentPerDay = Integer.parseInt(Main.sc.nextLine());
             ArrayList<Bike> tp = new ArrayList<>();
-            tp.add(new Bike(bikeName, numberPlate, Main.admins.get(ind), rentPerDay));
+            tp.add(new Bike(bikeName, numberPlate, Main.admins.get(ind), rentPerDay,priceOfBike));
             bikes.put(bikeName, tp);
         }
         System.out.println("Bike added SucessFully");
@@ -88,15 +90,17 @@ public class Vehicle {
         if (cars.containsKey(carName)) {
             ArrayList<Car> tp = cars.get(carName);
             tp.add(new Car(carName, numberPlate, tp.get(0).seats, Main.admins.get(ind),
-                    cars.get(carName).get(0).rentPerDay));
+                    cars.get(carName).get(0).rentPerDay,cars.get(carName).get(0).priceOfCar));
             cars.put(carName, tp);
         } else {
             System.out.print("Enter Number of Seats in Car : ");
             int seats = Integer.parseInt(Main.sc.nextLine());
+            System.out.print("Enter Price of Car : ");
+            int priceOfCar = Integer.parseInt(Main.sc.nextLine());
             System.out.print("Enter Rent per Day : ");
             int rentPerDay = Integer.parseInt(Main.sc.nextLine());
             ArrayList<Car> tp = new ArrayList<>();
-            tp.add(new Car(carName, numberPlate, seats, Main.admins.get(ind), rentPerDay));
+            tp.add(new Car(carName, numberPlate, seats, Main.admins.get(ind), rentPerDay,priceOfCar));
             cars.put(carName, tp);
 
         }
@@ -354,7 +358,7 @@ public class Vehicle {
             }
         }
         else{
-            System.out.println("Car with name "+carName" not found !");
+            System.out.println("Car with name "+carName+" not found !");
             System.out.println("Press any key to continue......");
             Main.sc.nextLine();
             modifyCarRate();
@@ -373,12 +377,10 @@ public class Vehicle {
         if (bikeName.equals("0")) {
             return;
         }
-        boolean flag=false;
         if (bikes.containsKey(bikeName)) {
             System.out.print("Enter New Rent : ");
             Integer newRentPerDay = Integer.parseInt(Main.sc.nextLine());
             for (int i = 0; i < bikes.get(bikeName).size(); i++) {
-                flag=true;
                 bikes.get(bikeName).get(i).rentPerDay = newRentPerDay;
             }
         }
