@@ -10,7 +10,6 @@ public class Main {
     }
 
     static List<Admin> admins = new ArrayList<>();
-    
     static List<User> users = new ArrayList<>();
 
     static{

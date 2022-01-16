@@ -316,4 +316,53 @@ public class Vehicle {
         Main.sc.nextLine();
     }
 
+    public static void modify() {
+        System.out.print("\033[H\033[2J");
+        System.out.println("    -> Enter 1 for Bike detail Modification"); 
+        System.out.println("    -> Enter 2 for Car detail Modification"); 
+        System.out.println("    -> Enter 3 to Exit");
+        System.out.print("Enter Choice : ");
+        String s = Main.sc.nextLine();
+        if(s.equals("1")){
+            modifyBikeRate();
+            modify();
+        }
+        else if(s.equals("2")){
+            modifyCarRate();
+            modify();
+        }
+        else if(s.equals("3")){
+            return;
+        }
+        else{
+            System.out.println("Invalid Choice\nEnter Correct Option");
+            System.out.println("Press any key to continue......");
+            Main.sc.nextLine();
+            modify();
+        }
+    }
+
+    
+
+    private static void modifyBikeRate() {
+        System.out.print("\033[H\033[2J");
+        System.out.println("-----Search Bike's Rent Per Day-----");
+        System.out.print("Enter Bike Name or 0 to Exit : ");
+        String bikeName = Main.sc.nextLine();
+        if(bikeName.equals("0")){
+            return;
+        }
+        if (bikes.containsKey(bikeName)) {
+            System.out.print("Enter New Rent : ");
+            Integer newRentPerDay = Integer.parseInt(Main.sc.nextLine());
+            for (int i = 0; i < bikes.get(bikeName).size(); i++, System.out.println()) {
+                bikes.get(bikeName).get(i).rentPerDay=newRentPerDay;
+            }
+        }
+        System.out.println("Bike Rent has been Modified Successfully");
+        System.out.println("Press any key to continue......");
+        Main.sc.nextLine();
+        return;
+    }
+
 }

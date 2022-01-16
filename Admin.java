@@ -48,7 +48,7 @@ public class Admin {
         System.out.printf("----Welcome , %s -----\n", Main.admins.get(ind).name);
         System.out.println("Please Select an option");
         System.out.println("    -> Enter a for Adding a Vehicle");
-        System.out.println("    -> Enter b to Modify Vehicle details");
+        System.out.println("    -> Enter b to Modify Vehicle`s Rent per Day");
         System.out.println("    -> Enter c for Removing a vehicle");
         System.out.println("    -> Enter d to Add a admin");
         System.out.println("    -> Enter e to view List of Bikes");
@@ -65,7 +65,8 @@ public class Admin {
                 Vehicle.addVehicle(ind);
                 break;
             case 'b':
-                // Vehicle.modify(ind);
+                Vehicle.modify();
+                adminPage(ind);
                 break;
             case 'c':
                 // Vehicle.removeVehicle(ind);
