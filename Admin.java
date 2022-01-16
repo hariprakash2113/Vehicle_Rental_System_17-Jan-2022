@@ -80,7 +80,8 @@ public class Admin {
                 // Vehicle.viewCars(ind);
                 break;
             case 'g':
-                // Vehicle.searchVehicle(ind);
+                Vehicle.searchVehicle();
+                adminPage(ind);
                 break;
             case 'h':
                 // User.changeAmount(ind);
