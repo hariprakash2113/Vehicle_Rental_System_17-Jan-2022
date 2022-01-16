@@ -3,7 +3,7 @@ public class Car {
     String numberPlate;
     Integer seats=0;
     Integer totKms=0;
-    Integer carsAvailable=0;
+    Boolean isAvailable=true;
     Integer borrowedCount=0;
     Integer rentPerDay=0;
     Integer serviceKms = 3000;
