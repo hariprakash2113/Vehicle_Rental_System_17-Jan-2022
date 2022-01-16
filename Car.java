@@ -8,14 +8,14 @@ public class Car {
     Integer borrowedCount;
     Integer serviceKms = 3000;
     Boolean isServiced = true;
+    Admin addedBy;
 
-
-    public Car(String carName, String numberPlate, Integer seats, Integer totCars) {
+    public Car(String carName, String numberPlate, Integer seats, Integer totCount,Admin addeBy) {
         this.carName = carName;
         this.numberPlate = numberPlate;
         this.seats = seats;
-        this.totCars = totCars;
+        this.totCount = totCount;
+        this.addedBy=addeBy;
     }
 
-    
 }

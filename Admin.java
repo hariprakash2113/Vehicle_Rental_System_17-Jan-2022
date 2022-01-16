@@ -62,7 +62,7 @@ public class Admin {
         char c = Main.sc.nextLine().charAt(0);
         switch (c) {
             case 'a':
-                // Vehicle.addVehicle(ind);
+                Vehicle.addVehicle(ind);
                 break;
             case 'b':
                 // Vehicle.modify(ind);
