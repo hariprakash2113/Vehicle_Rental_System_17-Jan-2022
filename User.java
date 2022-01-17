@@ -101,7 +101,8 @@ public class User {
         String opt = Main.sc.nextLine();
         switch (opt) {
             case "1":
-                // extendTenure(user_index);
+                extendTenure(user_index);
+                userPage(user_index);
                 break;
             case "2":
                 updateWallet(user_index);
@@ -128,6 +129,96 @@ public class User {
                 Main.sc.nextLine();
                 userPage(user_index);
         }
+    }
+
+    private static void extendTenure(int user_index) {
+        System.out.print("\033[H\033[2J");
+        if (Main.users.get(user_index).borrows.isEmpty()) {
+            System.out.println("You Haven't Borrowed any Vehicles yet !");
+            System.out.println("Press any key to continue......");
+            Main.sc.nextLine();
+            return;
+        }
+        if (Main.users.get(user_index).borrows.size() == 1) {
+            extenure(Main.users.get(user_index).borrows.get(0));
+        } else {
+            System.out.println("Enter 1 to extend tenure of Rented "
+                    + Main.transactions.get(0).vehicle.getClass().getSimpleName());
+            System.out.println("Enter 2 to extend tenure of Rented "
+                    + Main.transactions.get(1).vehicle.getClass().getSimpleName());
+            System.out.println("Enter 3 to Exit");
+            String opt = Main.sc.nextLine();
+            switch (opt) {
+                case "1":
+                    extenure(Main.users.get(user_index).borrows.get(0));
+                    break;
+                case "2":
+                    extenure(Main.users.get(user_index).borrows.get(1));
+                    break;
+                case "3":
+                    return;
+                default:
+                    System.out.println("Invalid Choice !\nEnter Correct Option");
+                    System.out.println("Press any key to continue......");
+                    Main.sc.nextLine();
+                    extendTenure(user_index);
+            }
+        }
+    }
+
+    private static void extenure(Object object) {
+        if (object instanceof Bike) {
+            System.out.println("Are you sure to Extend tenure of Bike for a Day ?");
+            System.out.print("Press y to confirm or 0 to exit");
+            String opt = Main.sc.nextLine();
+            switch (opt) {
+                case "y":
+                    break;
+                case "0":
+                    return;
+                default:
+                    System.out.println("Invalid Choice !\nEnter Correct Option");
+                    System.out.println("Press any key to continue......");
+                    Main.sc.nextLine();
+                    extenure(object);
+            }
+            Bike tp = (Bike) object;
+            if (tp.tenure < 3) {
+                tp.tenure++;
+            } else {
+                System.out.println("Maximum tenure Extension Limit is 2 days\nReturn the Vehicle");
+                System.out.println("Press any key to continue......");
+                Main.sc.nextLine();
+                return;
+            }
+        } else {
+            System.out.println("Are you sure to Extend tenure of Car~ for a Day ?");
+            System.out.print("Press y to confirm or 0 to exit");
+            String opt = Main.sc.nextLine();
+            switch (opt) {
+                case "y":
+                    break;
+                case "0":
+                    return;
+                default:
+                    System.out.println("Invalid Choice !\nEnter Correct Option");
+                    System.out.println("Press any key to continue......");
+                    Main.sc.nextLine();
+                    extenure(object);
+            }
+            Car tp = (Car) object;
+            if (tp.tenure < 3) {
+                tp.tenure++;
+            } else {
+                System.out.println("Maximum tenure Extension Limit is 2 days\nReturn the Vehicle");
+                System.out.println("Press any key to continue......");
+                Main.sc.nextLine();
+                return;
+            }
+        }
+        System.out.println("Tenure Extended for 1 day");
+        System.out.println("Press any key to continue......");
+        Main.sc.nextLine();
     }
 
     private static void viewTransactions(int user_index) {
