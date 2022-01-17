@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class User {
     String name;
     String email;
@@ -5,6 +8,7 @@ public class User {
     String mobile;
     String Address;
     Integer wallet = 30000;
+    List<Object> borrrows = new ArrayList<>();
 
     public User(String name, String email, String pass, String mobile, String address) {
         this.name = name;
@@ -74,7 +78,7 @@ public class User {
             forgetPassword(user_index);
         }
         if (Main.users.get(user_index).pass.equals(password)) {
-            //userPage(user_index);
+            userPage(user_index);
             System.out.println("userPage(user_index);");
         } else {
             System.out.println("Incorrect password !\nTry Again");
@@ -82,6 +86,18 @@ public class User {
             Main.sc.nextLine();
             userLogin();
         }
+    }
+
+    private static void userPage(int user_index) {
+        System.out.print("\033[H\033[2J");
+        System.out.printf("----Welcome , %s -----\n", Main.users.get(user_index).name);
+        System.out.println("Please Select an option");
+        System.out.println("    -> Enter 1 to Extend the Tenure of Rented Vehicle");
+        System.out.println("    -> Enter 2 to Add money to Wallet");
+        System.out.println("    -> Enter 3 to See List of Vehicles Available");
+        System.out.println("    -> Enter 4 to Search a Vehicle");
+        System.out.println("    -> Enter 5 to view Transactions");
+        System.out.println("    -> Enter 6 to Logout");
     }
 
     static void forgetPassword(int user_index) {

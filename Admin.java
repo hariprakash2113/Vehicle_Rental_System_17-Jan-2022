@@ -54,10 +54,14 @@ public class Admin {
         System.out.println("    -> Enter e to view List of Bikes");
         System.out.println("    -> Enter f to view List of Cars");
         System.out.println("    -> Enter g to search a Vehicle");
-        System.out.println("    -> Enter h to Change Security Deposit Amount of User");
-        System.out.println("    -> Enter i to Generate reports");
-        System.out.println("    -> Enter j to change your password");
-        System.out.println("    -> Enter k to Logout");
+        System.out.println("    -> Enter h to Issue a Vehicle");
+        System.out.println("    -> Enter i to Return a Vehicle");
+        System.out.println("    -> Enter j to put Fine on Customer");
+        System.out.println("    -> Enter k to View list of vehicles Waiting for Service");
+        System.out.println("    -> Enter l to Change Security Deposit Amount of User");
+        System.out.println("    -> Enter m to Generate reports");
+        System.out.println("    -> Enter n to change your password");
+        System.out.println("    -> Enter 0 to Logout");
         System.out.print("Enter Choice : ");
         char c = Main.sc.nextLine().charAt(0);
         switch (c) {
@@ -85,15 +89,31 @@ public class Admin {
                 adminPage(ind);
                 break;
             case 'h':
-                // User.changeAmount(ind);
+                //Vehicle.issue();
+                adminPage(ind);
                 break;
             case 'i':
-                // Book.generateReport(ind);
+                //Vehicle.returnVehicle();
+                adminPage(ind);
                 break;
             case 'j':
-                changePassword(ind);
+                //Vehicle.putFine();
+                adminPage(ind);
                 break;
             case 'k':
+                //Vehicle.serviceList();
+                adminPage(ind);
+                break;
+            case 'l':
+                // User.changeAmount(ind);
+                break;
+            case 'm':
+                // Book.generateReport(ind);
+                break;
+            case 'n':
+                changePassword(ind);
+                break;
+            case '0':
                 Main.homepage();
                 break;
             default:
