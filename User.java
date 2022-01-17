@@ -59,7 +59,7 @@ public class User {
 
     static void userLogin() {
         System.out.print("\033[H\033[2J");
-        System.out.println("-----Custumer Login-----");
+        System.out.println("-----Customer Login-----");
         System.out.print("Enter Email or 0 to exit : ");
         String email = Main.sc.nextLine();
         if(email.equals("0")){
@@ -79,7 +79,6 @@ public class User {
         }
         if (Main.users.get(user_index).pass.equals(password)) {
             userPage(user_index);
-            System.out.println("userPage(user_index);");
         } else {
             System.out.println("Incorrect password !\nTry Again");
             System.out.println("Press any key to continue......");
@@ -108,7 +107,8 @@ public class User {
                 // updateWallet(user_index);
                 break;
             case "3":
-                // Vehicle.viewVehicleList();
+                viewVehicleList(user_index);
+                userPage(user_index);
                 break;
             case "4":
                 Vehicle.searchVehicle();
@@ -125,6 +125,32 @@ public class User {
             System.out.println("Press any key to continue......");
             Main.sc.nextLine();
             userPage(user_index);
+        }
+    }
+
+    private static void viewVehicleList(int user_index) {
+        System.out.print("\033[H\033[2J");
+        System.out.println("--------Select Vehicle--------");
+        System.out.println("Enter 1 to view List of Bikes");
+        System.out.println("Enter 2 to view List of Cars");
+        System.out.println("Enter 3 to Exit");
+        String s = Main.sc.nextLine();
+        switch(s){
+            case "1":
+                Vehicle.viewBikes();
+                viewVehicleList(user_index);
+                break;
+            case "2":
+                Vehicle.viewCars();
+                viewVehicleList(user_index);
+                break;
+            case "3":
+                return;
+            default:
+                System.out.println("Invalid Choice !\nEnter Correct Option");
+                System.out.println("Press any key to continue......");
+                Main.sc.nextLine();
+                break;
         }
     }
 

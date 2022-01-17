@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -12,26 +11,26 @@ public class Vehicle {
 
     static {
         ArrayList<Car> w = new ArrayList<>();
-        w.add(new Car("carName", "numberPlate", 4, Main.admins.get(0), 3000,100000));
-        w.add(new Car("carName1", "numberPlate1", 4, Main.admins.get(0), 3000,100000));
-        w.add(new Car("carName2", "numberPlate2", 4, Main.admins.get(0), 3000,100000));
+        w.add(new Car("carName", "numberPlate", 4, Main.admins.get(0), 3000, 100000));
+        w.add(new Car("carName1", "numberPlate1", 4, Main.admins.get(0), 3000, 100000));
+        w.add(new Car("carName2", "numberPlate2", 4, Main.admins.get(0), 3000, 100000));
         cars.put("i20", w);
         ArrayList<Car> x = new ArrayList<>();
-        x.add(new Car("carName", "numberPlate", 4, Main.admins.get(0), 3000,100000));
-        x.add(new Car("carName1", "numberPlate2", 4, Main.admins.get(0), 3000,100000));
-        x.add(new Car("carName1", "numberPlate2", 4, Main.admins.get(0), 3000,100000));
-        x.add(new Car("carName1", "numberPlate2", 4, Main.admins.get(0), 3000,100000));
+        x.add(new Car("carName", "numberPlate", 4, Main.admins.get(0), 3000, 100000));
+        x.add(new Car("carName1", "numberPlate2", 4, Main.admins.get(0), 3000, 100000));
+        x.add(new Car("carName1", "numberPlate2", 4, Main.admins.get(0), 3000, 100000));
+        x.add(new Car("carName1", "numberPlate2", 4, Main.admins.get(0), 3000, 100000));
         cars.put("i10", x);
         ArrayList<Bike> y = new ArrayList<>();
-        y.add(new Bike("bikeName", "numberPlate", Main.admins.get(0), 500,500000));
-        y.add(new Bike("bikeName1", "numberPlate1", Main.admins.get(0), 500,500000));
-        y.add(new Bike("bikeName1", "numberPlate2", Main.admins.get(0), 500,500000));
-        y.add(new Bike("bikeName1", "numberPlate3", Main.admins.get(0), 500,500000));
+        y.add(new Bike("bikeName", "numberPlate", Main.admins.get(0), 500, 500000));
+        y.add(new Bike("bikeName1", "numberPlate1", Main.admins.get(0), 500, 500000));
+        y.add(new Bike("bikeName1", "numberPlate2", Main.admins.get(0), 500, 500000));
+        y.add(new Bike("bikeName1", "numberPlate3", Main.admins.get(0), 500, 500000));
         bikes.put("apache", y);
         ArrayList<Bike> z = new ArrayList<>();
-        z.add(new Bike("bikeName", "numberPlate", Main.admins.get(0), 500,500000));
-        z.add(new Bike("bikeName1", "numberPlate1", Main.admins.get(0), 500,500000));
-        z.add(new Bike("bikeName2", "numberPlate2", Main.admins.get(0), 500,500000));
+        z.add(new Bike("bikeName", "numberPlate", Main.admins.get(0), 500, 500000));
+        z.add(new Bike("bikeName1", "numberPlate1", Main.admins.get(0), 500, 500000));
+        z.add(new Bike("bikeName2", "numberPlate2", Main.admins.get(0), 500, 500000));
         bikes.put("sp125", z);
     }
 
@@ -74,7 +73,7 @@ public class Vehicle {
         if (bikes.containsKey(bikeName)) {
             ArrayList<Bike> tp = bikes.get(bikeName);
             tp.add(new Bike(bikeName, numberPlate, Main.admins.get(ind),
-                    bikes.get(bikeName).get(0).rentPerDay,bikes.get(bikeName).get(0).priceOfBike));
+                    bikes.get(bikeName).get(0).rentPerDay, bikes.get(bikeName).get(0).priceOfBike));
             bikes.put(bikeName, tp);
         } else {
             System.out.print("Enter Price of Bike : ");
@@ -82,7 +81,7 @@ public class Vehicle {
             System.out.print("Enter Rent per Day : ");
             int rentPerDay = Integer.parseInt(Main.sc.nextLine());
             ArrayList<Bike> tp = new ArrayList<>();
-            tp.add(new Bike(bikeName, numberPlate, Main.admins.get(ind), rentPerDay,priceOfBike));
+            tp.add(new Bike(bikeName, numberPlate, Main.admins.get(ind), rentPerDay, priceOfBike));
             bikes.put(bikeName, tp);
         }
         System.out.println("Bike added SucessFully");
@@ -107,7 +106,7 @@ public class Vehicle {
         if (cars.containsKey(carName)) {
             ArrayList<Car> tp = cars.get(carName);
             tp.add(new Car(carName, numberPlate, tp.get(0).seats, Main.admins.get(ind),
-                    cars.get(carName).get(0).rentPerDay,cars.get(carName).get(0).priceOfCar));
+                    cars.get(carName).get(0).rentPerDay, cars.get(carName).get(0).priceOfCar));
             cars.put(carName, tp);
         } else {
             System.out.print("Enter Number of Seats in Car : ");
@@ -117,7 +116,7 @@ public class Vehicle {
             System.out.print("Enter Rent per Day : ");
             int rentPerDay = Integer.parseInt(Main.sc.nextLine());
             ArrayList<Car> tp = new ArrayList<>();
-            tp.add(new Car(carName, numberPlate, seats, Main.admins.get(ind), rentPerDay,priceOfCar));
+            tp.add(new Car(carName, numberPlate, seats, Main.admins.get(ind), rentPerDay, priceOfCar));
             cars.put(carName, tp);
 
         }
@@ -234,7 +233,8 @@ public class Vehicle {
                 System.out.println("Number Plate String of the Car => " + cars.get(carName).get(i).numberPlate);
                 System.out.println("Total Kms Travelled => " + cars.get(carName).get(i).totKms);
                 System.out.println("No. of TImes Borrowed => " + cars.get(carName).get(i).borrowedCount);
-                System.out.println("Currently Available for Ride => " + (cars.get(carName).get(i).isAvailable ? "Yes" : "No"));
+                System.out.println(
+                        "Currently Available for Ride => " + (cars.get(carName).get(i).isAvailable ? "Yes" : "No"));
             }
         } else {
             System.out.println("Car with Name => " + carName + " not found !");
@@ -327,7 +327,8 @@ public class Vehicle {
                 System.out.println("Number Plate String of the Bike => " + bikes.get(bikeName).get(i).numberPlate);
                 System.out.println("Total Kms Travelled => " + bikes.get(bikeName).get(i).totKms);
                 System.out.println("No. of TImes Borrowed => " + bikes.get(bikeName).get(i).borrowedCount);
-                System.out.println("Currently Available for Ride => " + (bikes.get(bikeName).get(i).isAvailable ? "Yes" : "No"));
+                System.out.println(
+                        "Currently Available for Ride => " + (bikes.get(bikeName).get(i).isAvailable ? "Yes" : "No"));
             }
         } else {
             System.out.println("Bike with Name => " + bikeName + " not found !");
@@ -375,9 +376,8 @@ public class Vehicle {
             for (int i = 0; i < cars.get(carName).size(); i++) {
                 cars.get(carName).get(i).rentPerDay = newRentPerDay;
             }
-        }
-        else{
-            System.out.println("Car with name "+carName+" not found !");
+        } else {
+            System.out.println("Car with name " + carName + " not found !");
             System.out.println("Press any key to continue......");
             Main.sc.nextLine();
             modifyCarRate();
@@ -402,9 +402,8 @@ public class Vehicle {
             for (int i = 0; i < bikes.get(bikeName).size(); i++) {
                 bikes.get(bikeName).get(i).rentPerDay = newRentPerDay;
             }
-        }
-        else{
-            System.out.println("Bike with name "+bikeName+" not found !");
+        } else {
+            System.out.println("Bike with name " + bikeName + " not found !");
             System.out.println("Press any key to continue......");
             Main.sc.nextLine();
             modifyBikeRate();
@@ -423,18 +422,15 @@ public class Vehicle {
         System.out.println("Enter 3 to Exit");
         System.out.print("Enter Choice : ");
         String s = Main.sc.nextLine();
-        if(s.equals("1")){
+        if (s.equals("1")) {
             sortByName(bikes);
             viewBikes();
-        }
-        else if(s.equals("2")){
+        } else if (s.equals("2")) {
             sortByCount(bikes);
             viewBikes();
-        }
-        else if(s.equals("3")){
+        } else if (s.equals("3")) {
             return;
-        }
-        else {
+        } else {
             System.out.println("Invalid Choice\nEnter Correct Option");
             System.out.println("Press any key to continue......");
             Main.sc.nextLine();
@@ -444,29 +440,30 @@ public class Vehicle {
 
     private static void sortByCount(TreeMap<String, ArrayList<Bike>> bikes2) {
         List<String> keys = new ArrayList<String>(bikes2.keySet());
-        Collections.sort(keys,new CountSorter());
+        Collections.sort(keys, new CountSorter());
         display(keys);
     }
 
     private static <TreeSet> void sortByName(TreeMap<String, ArrayList<Bike>> bikes2) {
         List<String> keys = new ArrayList<String>(bikes2.keySet());
-        Collections.sort(keys,new NameSorter());
+        Collections.sort(keys, new NameSorter());
         display(keys);
     }
 
     private static void display(List<String> keys) {
         System.out.print("\033[H\033[2J");
         System.out.println("-------Bike Details--------");
-        for(String i:keys){
+        for (String i : keys) {
             System.out.println("Name of the Bike => " + i);
             System.out.println("Total Bikes in Garage => " + bikes.get(i).size());
             System.out.println("Rent Per Day => " + bikes.get(i).get(0).rentPerDay);
             System.out.println("==================================================================");
-            for (int j = 0; j < bikes.get(i).size(); j++,System.out.println()) {
+            for (int j = 0; j < bikes.get(i).size(); j++, System.out.println()) {
                 System.out.println("Number Plate String of the Bike => " + bikes.get(i).get(j).numberPlate);
                 System.out.println("Total Kms Travelled => " + bikes.get(i).get(j).totKms);
                 System.out.println("No. of TImes Borrowed => " + bikes.get(i).get(j).borrowedCount);
-                System.out.println("Currently Available for Ride => " + (bikes.get(i).get(j).isAvailable ? "Yes" : "No"));
+                System.out
+                        .println("Currently Available for Ride => " + (bikes.get(i).get(j).isAvailable ? "Yes" : "No"));
             }
             System.out.println("=x=x=x=x=x==xx=x=x=x=x=x=x=x=x=x=x=x=x=x=x=x=x=x=x=x=x=x=x=x=x=x=x==xx==");
             System.out.println();
@@ -475,7 +472,7 @@ public class Vehicle {
         Main.sc.nextLine();
     }
 
-	public static void viewCars() {
+    public static void viewCars() {
         System.out.print("\033[H\033[2J");
         System.out.println("-----View List of Cars-----");
         System.out.println("Enter 1 to view sorted by Name");
@@ -483,51 +480,49 @@ public class Vehicle {
         System.out.println("Enter 3 to Exit");
         System.out.print("Enter Choice : ");
         String s = Main.sc.nextLine();
-        if(s.equals("1")){
+        if (s.equals("1")) {
             sortCarByName(cars);
             viewCars();
-        }
-        else if(s.equals("2")){
+        } else if (s.equals("2")) {
             sortCarByCount(cars);
             viewCars();
-        }
-        else if(s.equals("3")){
+        } else if (s.equals("3")) {
             return;
-        }
-        else {
+        } else {
             System.out.println("Invalid Choice\nEnter Correct Option");
             System.out.println("Press any key to continue......");
             Main.sc.nextLine();
             viewBikes();
         }
-	}
+    }
 
     private static void sortCarByName(TreeMap<String, ArrayList<Car>> cars2) {
         List<String> keys = new ArrayList<String>(cars2.keySet());
-        Collections.sort(keys,new NameSorter());
+        Collections.sort(keys, new NameSorter());
         displayCars(keys);
     }
 
     private static void sortCarByCount(TreeMap<String, ArrayList<Car>> cars2) {
         List<String> keys = new ArrayList<String>(cars2.keySet());
-        Collections.sort(keys,new CountSorter());
+        Collections.sort(keys, new CountSorter());
         displayCars(keys);
     }
 
     private static void displayCars(List<String> keys) {
         System.out.print("\033[H\033[2J");
         System.out.println("-------Car Details--------");
-        for(String i:keys){
+        for (String i : keys) {
             System.out.println("Name of the Car => " + i);
             System.out.println("Total Cars in Garage => " + cars.get(i).size());
             System.out.println("Rent Per Day => " + cars.get(i).get(0).rentPerDay);
             System.out.println("No. of Seats in car => " + cars.get(i).get(0).seats);
             System.out.println("==================================================================");
-            for (int j = 0; j < cars.get(i).size(); j++,System.out.println()) {
+            for (int j = 0; j < cars.get(i).size(); j++, System.out.println()) {
                 System.out.println("Number Plate String of the Car => " + cars.get(i).get(j).numberPlate);
                 System.out.println("Total Kms Travelled => " + cars.get(i).get(j).totKms);
                 System.out.println("No. of Times Borrowed => " + cars.get(i).get(j).borrowedCount);
-                System.out.println("Currently Available for Ride => " + (cars.get(i).get(j).isAvailable ? "Yes" : "No"));
+                System.out
+                        .println("Currently Available for Ride => " + (cars.get(i).get(j).isAvailable ? "Yes" : "No"));
             }
             System.out.println("=x=x=x=x=x==xx=x=x=x=x=x=x=x=x=x=x=x=x=x=x=x=x=x=x=x=x=x=x=x=x=x=x==xx==");
             System.out.println();
@@ -536,5 +531,4 @@ public class Vehicle {
         Main.sc.nextLine();
     }
 
-    
 }
