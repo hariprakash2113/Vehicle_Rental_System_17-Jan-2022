@@ -104,7 +104,8 @@ public class User {
                 // extendTenure(user_index);
                 break;
             case "2":
-                // updateWallet(user_index);
+                updateWallet(user_index);
+                userPage(user_index);
                 break;
             case "3":
                 viewVehicleList(user_index);
@@ -125,6 +126,23 @@ public class User {
             System.out.println("Press any key to continue......");
             Main.sc.nextLine();
             userPage(user_index);
+        }
+    }
+
+    private static void updateWallet(int user_index) {
+        System.out.print("\033[H\033[2J");
+        System.out.println("---------Wallet Actions---------");
+        System.out.println("Your Current Wallet Balance => "+Main.users.get(user_index).wallet);
+        System.out.print("Enter Amount to be added (or) 0 to exit : ");
+        Integer adder = Integer.parseInt(Main.sc.nextLine());
+        if(adder==0){
+            return;
+        }
+        else{
+            Main.users.get(user_index).wallet+=adder;
+            System.out.println("Your Upated Balance is Rs."+Main.users.get(user_index).wallet);
+            System.out.println("Press any key to continue......");
+            Main.sc.nextLine();
         }
     }
 
