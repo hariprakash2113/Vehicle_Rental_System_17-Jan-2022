@@ -19,6 +19,8 @@ public class Vehicle {
         ArrayList<Car> x = new ArrayList<>();
         x.add(new Car("carName", "numberPlate", 4, Main.admins.get(0), 3000,100000));
         x.add(new Car("carName1", "numberPlate2", 4, Main.admins.get(0), 3000,100000));
+        x.add(new Car("carName1", "numberPlate2", 4, Main.admins.get(0), 3000,100000));
+        x.add(new Car("carName1", "numberPlate2", 4, Main.admins.get(0), 3000,100000));
         cars.put("i10", x);
         ArrayList<Bike> y = new ArrayList<>();
         y.add(new Bike("bikeName", "numberPlate", Main.admins.get(0), 500,500000));
@@ -472,4 +474,67 @@ public class Vehicle {
         System.out.println("Press any key to continue......");
         Main.sc.nextLine();
     }
+
+	public static void viewCars() {
+        System.out.print("\033[H\033[2J");
+        System.out.println("-----View List of Cars-----");
+        System.out.println("Enter 1 to view sorted by Name");
+        System.out.println("Enter 2 to view sorted by count of vehicles");
+        System.out.println("Enter 3 to Exit");
+        System.out.print("Enter Choice : ");
+        String s = Main.sc.nextLine();
+        if(s.equals("1")){
+            sortCarByName(cars);
+            viewCars();
+        }
+        else if(s.equals("2")){
+            sortCarByCount(cars);
+            viewCars();
+        }
+        else if(s.equals("3")){
+            return;
+        }
+        else {
+            System.out.println("Invalid Choice\nEnter Correct Option");
+            System.out.println("Press any key to continue......");
+            Main.sc.nextLine();
+            viewBikes();
+        }
+	}
+
+    private static void sortCarByName(TreeMap<String, ArrayList<Car>> cars2) {
+        List<String> keys = new ArrayList<String>(cars2.keySet());
+        Collections.sort(keys,new NameSorter());
+        displayCars(keys);
+    }
+
+    private static void sortCarByCount(TreeMap<String, ArrayList<Car>> cars2) {
+        List<String> keys = new ArrayList<String>(cars2.keySet());
+        Collections.sort(keys,new CountSorter());
+        displayCars(keys);
+    }
+
+    private static void displayCars(List<String> keys) {
+        System.out.print("\033[H\033[2J");
+        System.out.println("-------Car Details--------");
+        for(String i:keys){
+            System.out.println("Name of the Car => " + i);
+            System.out.println("Total Cars in Garage => " + cars.get(i).size());
+            System.out.println("Rent Per Day => " + cars.get(i).get(0).rentPerDay);
+            System.out.println("No. of Seats in car => " + cars.get(i).get(0).seats);
+            System.out.println("==================================================================");
+            for (int j = 0; j < cars.get(i).size(); j++,System.out.println()) {
+                System.out.println("Number Plate String of the Car => " + cars.get(i).get(j).numberPlate);
+                System.out.println("Total Kms Travelled => " + cars.get(i).get(j).totKms);
+                System.out.println("No. of Times Borrowed => " + cars.get(i).get(j).borrowedCount);
+                System.out.println("Currently Available for Ride => " + (cars.get(i).get(j).isAvailable ? "Yes" : "No"));
+            }
+            System.out.println("=x=x=x=x=x==xx=x=x=x=x=x=x=x=x=x=x=x=x=x=x=x=x=x=x=x=x=x=x=x=x=x=x==xx==");
+            System.out.println();
+        }
+        System.out.println("Press any key to continue......");
+        Main.sc.nextLine();
+    }
+
+    
 }

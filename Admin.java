@@ -83,7 +83,8 @@ public class Admin {
                 adminPage(ind);
                 break;
             case 'f':
-                // Vehicle.viewCars(ind);
+                Vehicle.viewCars();
+                adminPage(ind);
                 break;
             case 'g':
                 Vehicle.searchVehicle();
