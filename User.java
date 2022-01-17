@@ -129,10 +129,10 @@ public class User {
         }
     }
 
-    private static void updateWallet(int user_index) {
+    public static void updateWallet(int user_index) {
         System.out.print("\033[H\033[2J");
         System.out.println("---------Wallet Actions---------");
-        System.out.println("Your Current Wallet Balance => "+Main.users.get(user_index).wallet);
+        System.out.println("Current Wallet Balance is Rs. => "+Main.users.get(user_index).wallet);
         System.out.print("Enter Amount to be added (or) 0 to exit : ");
         Integer adder = Integer.parseInt(Main.sc.nextLine());
         if(adder==0){
@@ -140,7 +140,7 @@ public class User {
         }
         else{
             Main.users.get(user_index).wallet+=adder;
-            System.out.println("Your Upated Balance is Rs."+Main.users.get(user_index).wallet);
+            System.out.println("Your Upated Balance is Rs. => "+Main.users.get(user_index).wallet);
             System.out.println("Press any key to continue......");
             Main.sc.nextLine();
         }

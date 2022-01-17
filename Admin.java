@@ -107,7 +107,8 @@ public class Admin {
                 adminPage(ind);
                 break;
             case 'l':
-                // User.changeAmount(ind);
+                changeAmount();
+                adminPage(ind);
                 break;
             case 'm':
                 // Book.generateReport(ind);
@@ -126,6 +127,14 @@ public class Admin {
                 adminPage(ind);
         }
     }
+
+    private static void changeAmount() {
+        System.out.print("\033[H\033[2J");
+        System.out.print("Enter Email ID of User or 0 to Exit :");
+        String email = Main.sc.nextLine();
+        User.updateWallet(User.findUserInd(email));
+    }
+
 
     static void changePassword(int ind) {
         System.out.print("\033[H\033[2J");
