@@ -8,7 +8,7 @@ public class User {
     String mobile;
     String Address;
     Integer wallet = 30000;
-    List<Object> borrrows = new ArrayList<>();
+    List<Object> borrows = new ArrayList<>();
 
     public User(String name, String email, String pass, String mobile, String address) {
         this.name = name;

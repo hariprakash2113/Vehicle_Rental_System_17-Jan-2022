@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -529,6 +530,101 @@ public class Vehicle {
         }
         System.out.println("Press any key to continue......");
         Main.sc.nextLine();
+    }
+
+    public static void issue(int ind) {
+        System.out.print("\033[H\033[2J");
+        System.out.println("-----Issue Vehicle-----");
+        System.out.print("Enter User's Email Id or 0 to Exit :");
+        String email = Main.sc.nextLine();
+        if (email.equals("0")) {
+            return;
+        }
+        int user_index = User.findUserInd(email);
+        if (user_index == -1) {
+            System.out.println("User Not Found !");
+            System.out.println("Press any key to continue......");
+            Main.sc.nextLine();
+            issue(ind);
+        }
+        issueVehicle(ind, user_index);
+    }
+
+    private static void issueVehicle(int ind, int user_index) {
+        System.out.print("\033[H\033[2J");
+        System.out.println("-----Issue Vehicle-----");
+        System.out.println("Enter 1 for Bike");
+        System.out.println("Enter 2 for Car");
+        System.out.println("Enter 3 to Exit");
+        String s = Main.sc.nextLine();
+        switch (s) {
+            case "1":
+                issueBike(ind, user_index);
+                issueVehicle(ind, user_index);
+                break;
+            case "2":
+                // issueCar(ind,user_index);
+                issueVehicle(ind, user_index);
+                break;
+            case "3":
+                return;
+            default:
+                System.out.println("Invalid Choice\nEnter Correct Option");
+                System.out.println("Press any key to continue......");
+                Main.sc.nextLine();
+                issueVehicle(ind, user_index);
+        }
+    }
+
+    private static void issueBike(int ind, int user_index) {
+        System.out.print("\033[H\033[2J");
+        System.out.println("-----Issue Bike-----");
+        if (Main.users.get(user_index).borrows.size() >= 2) {
+            System.out.println("You can borrow two vechicles at a time (1 car + 1 Bike)");
+            System.out.println("Press any key to continue......");
+            Main.sc.nextLine();
+            return;
+        }
+        if(Main.users.get(user_index).borrows.size()!=0){
+            if ((Main.users.get(user_index).borrows.get(0)) instanceof Bike) {
+                System.out.println("You can rent at most 1 Bike at a time");
+                System.out.println("Press any key to continue......");
+                Main.sc.nextLine();
+                return;
+            }
+        }
+        System.out.print("Enter Bike Name or 0 to Exit : ");
+        String bikeName = Main.sc.nextLine();
+        if(bikeName.equals("0")){
+            return;
+        }
+        if (bikes.get(bikeName) != null) {
+            for (int i = 0; i < bikes.get(bikeName).size(); i++) {
+                if (bikes.get(bikeName).get(i).isAvailable && bikes.get(bikeName).get(i).isServiced) {
+                    bikes.get(bikeName).get(i).isAvailable = false;
+                    bikes.get(bikeName).get(i).tenure++;
+                    bikes.get(bikeName).get(i).borrowedCount++;
+                    Main.users.get(user_index).borrows.add(bikes.get(bikeName).get(i));
+                    Main.transactions.add(new Transaction(bikes.get(bikeName).get(i), "Rent",
+                            Main.users.get(user_index), LocalDate.now(), "nil", 0, Main.admins.get(ind)));
+                    System.out.printf("Bike %s has been issued to %s Successfully\n", bikeName,
+                            Main.users.get(user_index).name);
+                    System.out.println("Press any key to continue......");
+                    Main.sc.nextLine();
+                    return;
+                }
+            }
+            System.out.println("Bike "+bikeName+" not available Currently !\nFeel free to Borrow Other Bikes");
+            System.out.println("Press any key to continue......");
+            Main.sc.nextLine();
+            issueBike(ind, user_index);
+        }
+        else{
+            System.out.println("Bike "+bikeName+" not found !");
+            System.out.println("Press any key to continue......");
+            Main.sc.nextLine();
+            issueBike(ind, user_index);
+        }
     }
 
 }

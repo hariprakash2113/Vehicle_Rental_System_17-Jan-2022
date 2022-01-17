@@ -91,7 +91,7 @@ public class Admin {
                 adminPage(ind);
                 break;
             case 'h':
-                //Vehicle.issue();
+                Vehicle.issue(ind);
                 adminPage(ind);
                 break;
             case 'i':
@@ -99,7 +99,7 @@ public class Admin {
                 adminPage(ind);
                 break;
             case 'j':
-                //Vehicle.putFine();
+                //User.putFine();
                 adminPage(ind);
                 break;
             case 'k':
@@ -111,7 +111,7 @@ public class Admin {
                 adminPage(ind);
                 break;
             case 'm':
-                // Book.generateReport(ind);
+                // Vehicle.generateReport(ind);
                 break;
             case 'n':
                 changePassword(ind);
