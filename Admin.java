@@ -1,8 +1,8 @@
+
 public class Admin {
     String name;
     String email;
     String password;
-
     
     public Admin(String name, String email, String password) {
         this.name = name;
@@ -79,7 +79,8 @@ public class Admin {
                 addNewAdmin(ind);
                 break;
             case 'e':
-                //Vehicle.viewBikes(ind);
+                Vehicle.viewBikes();
+                adminPage(ind);
                 break;
             case 'f':
                 // Vehicle.viewCars(ind);

@@ -11,6 +11,7 @@ public class Main {
 
     static List<Admin> admins = new ArrayList<>();
     static List<User> users = new ArrayList<>();
+    static List<Transaction>  transactions = new ArrayList<>();
 
     static{
         admins.add(new Admin("Hari Prakash", "hari", "1108"));

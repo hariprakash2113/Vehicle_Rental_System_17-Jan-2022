@@ -1,4 +1,7 @@
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 import java.util.TreeMap;
 
@@ -8,6 +11,11 @@ public class Vehicle {
     static TreeMap<String, ArrayList<Bike>> bikes = new TreeMap<>();
 
     static {
+        ArrayList<Car> w = new ArrayList<>();
+        w.add(new Car("carName", "numberPlate", 4, Main.admins.get(0), 3000,100000));
+        w.add(new Car("carName1", "numberPlate1", 4, Main.admins.get(0), 3000,100000));
+        w.add(new Car("carName2", "numberPlate2", 4, Main.admins.get(0), 3000,100000));
+        cars.put("i20", w);
         ArrayList<Car> x = new ArrayList<>();
         x.add(new Car("carName", "numberPlate", 4, Main.admins.get(0), 3000,100000));
         x.add(new Car("carName1", "numberPlate2", 4, Main.admins.get(0), 3000,100000));
@@ -16,6 +24,11 @@ public class Vehicle {
         y.add(new Bike("bikeName", "numberPlate", Main.admins.get(0), 500,500000));
         y.add(new Bike("bikeName1", "numberPlate1", Main.admins.get(0), 500,500000));
         bikes.put("sp125", y);
+        ArrayList<Bike> z = new ArrayList<>();
+        z.add(new Bike("bikeName", "numberPlate", Main.admins.get(0), 500,500000));
+        z.add(new Bike("bikeName1", "numberPlate1", Main.admins.get(0), 500,500000));
+        z.add(new Bike("bikeName2", "numberPlate2", Main.admins.get(0), 500,500000));
+        bikes.put("apache", z);
     }
 
     public static void addVehicle(int ind) {
@@ -398,4 +411,56 @@ public class Vehicle {
         return;
     }
 
+    public static void viewBikes() {
+        System.out.print("\033[H\033[2J");
+        System.out.println("-----View List of Bikes-----");
+        System.out.println("Enter 1 to view sorted by Name");
+        System.out.println("Enter 2 to view sorted by count of vehicles");
+        System.out.println("Enter 3 to Exit");
+        System.out.print("Enter Choice : ");
+        String s = Main.sc.nextLine();
+        if(s.equals("1")){
+            sortByName(bikes);
+            viewBikes();
+        }
+        else if(s.equals("2")){
+            // sortByCount(bikes);
+            viewBikes();
+        }
+        else if(s.equals("3")){
+            return;
+        }
+        else {
+            System.out.println("Invalid Choice\nEnter Correct Option");
+            System.out.println("Press any key to continue......");
+            Main.sc.nextLine();
+            viewBikes();
+        }
+    }
+
+    private static <TreeSet> void sortByName(TreeMap<String, ArrayList<Bike>> bikes2) {
+        List<String> keys = new ArrayList<String>(bikes2.keySet());
+        Collections.sort(keys,new NameSorter());
+        display(keys);
+    }
+
+    private static void display(List<String> keys) {
+        System.out.println("-------Bike Details--------");
+        for(String i:keys){
+            System.out.println("Name of the Bike => " + i);
+            System.out.println("Total Bikes in Garage => " + bikes.get(i).size());
+            System.out.println("Rent Per Day => " + bikes.get(i).get(0).rentPerDay);
+            System.out.println("==================================================================");
+            for (int j = 0; j < bikes.get(i).size(); j++,System.out.println()) {
+                System.out.println("Number Plate String of the Bike => " + bikes.get(i).get(j).numberPlate);
+                System.out.println("Total Kms Travelled => " + bikes.get(i).get(j).totKms);
+                System.out.println("No. of TImes Borrowed => " + bikes.get(i).get(j).borrowedCount);
+                System.out.println("Currently Available for Ride => " + (bikes.get(i).get(j).isAvailable ? "Yes" : "No"));
+            }
+            System.out.println("=x=x=x=x=x==xx=x=x=x=x=x=x=x=x=x=x=x=x=x=x=x=x=x=x=x=x=x=x=x=x=x=x==xx==");
+            System.out.println();
+        }
+        System.out.println("Press any key to continue......");
+        Main.sc.nextLine();
+    }
 }
