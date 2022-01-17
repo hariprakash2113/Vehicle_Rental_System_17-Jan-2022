@@ -23,12 +23,14 @@ public class Vehicle {
         ArrayList<Bike> y = new ArrayList<>();
         y.add(new Bike("bikeName", "numberPlate", Main.admins.get(0), 500,500000));
         y.add(new Bike("bikeName1", "numberPlate1", Main.admins.get(0), 500,500000));
-        bikes.put("sp125", y);
+        y.add(new Bike("bikeName1", "numberPlate2", Main.admins.get(0), 500,500000));
+        y.add(new Bike("bikeName1", "numberPlate3", Main.admins.get(0), 500,500000));
+        bikes.put("apache", y);
         ArrayList<Bike> z = new ArrayList<>();
         z.add(new Bike("bikeName", "numberPlate", Main.admins.get(0), 500,500000));
         z.add(new Bike("bikeName1", "numberPlate1", Main.admins.get(0), 500,500000));
         z.add(new Bike("bikeName2", "numberPlate2", Main.admins.get(0), 500,500000));
-        bikes.put("apache", z);
+        bikes.put("sp125", z);
     }
 
     public static void addVehicle(int ind) {
@@ -424,7 +426,7 @@ public class Vehicle {
             viewBikes();
         }
         else if(s.equals("2")){
-            // sortByCount(bikes);
+            sortByCount(bikes);
             viewBikes();
         }
         else if(s.equals("3")){
@@ -438,6 +440,12 @@ public class Vehicle {
         }
     }
 
+    private static void sortByCount(TreeMap<String, ArrayList<Bike>> bikes2) {
+        List<String> keys = new ArrayList<String>(bikes2.keySet());
+        Collections.sort(keys,new CountSorter());
+        display(keys);
+    }
+
     private static <TreeSet> void sortByName(TreeMap<String, ArrayList<Bike>> bikes2) {
         List<String> keys = new ArrayList<String>(bikes2.keySet());
         Collections.sort(keys,new NameSorter());
@@ -445,6 +453,7 @@ public class Vehicle {
     }
 
     private static void display(List<String> keys) {
+        System.out.print("\033[H\033[2J");
         System.out.println("-------Bike Details--------");
         for(String i:keys){
             System.out.println("Name of the Bike => " + i);
