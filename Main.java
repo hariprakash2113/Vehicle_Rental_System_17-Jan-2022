@@ -14,6 +14,7 @@ public class Main {
 
     static{
         admins.add(new Admin("Hari Prakash", "hari", "1108"));
+        users.add(new User("Hari Prakash", "harii", "1108","99650","Tiruppur"));
     }
 
     public static void homepage(){

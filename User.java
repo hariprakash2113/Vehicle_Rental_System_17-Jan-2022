@@ -24,7 +24,7 @@ public class User {
         System.out.println("Enter 1 for Sign Up");
         System.out.println("Enter 2 for Log in");
         System.out.println("Enter 3 to go back");
-
+        System.out.print("Enter Choice : ");
         int n = Integer.parseInt(Main.sc.nextLine());
 
         if (n == 1) {
@@ -93,11 +93,39 @@ public class User {
         System.out.printf("----Welcome , %s -----\n", Main.users.get(user_index).name);
         System.out.println("Please Select an option");
         System.out.println("    -> Enter 1 to Extend the Tenure of Rented Vehicle");
-        System.out.println("    -> Enter 2 to Add money to Wallet");
+        System.out.println("    -> Enter 2 to View / Add money to Wallet");
         System.out.println("    -> Enter 3 to See List of Vehicles Available");
         System.out.println("    -> Enter 4 to Search a Vehicle");
         System.out.println("    -> Enter 5 to view Transactions");
         System.out.println("    -> Enter 6 to Logout");
+        System.out.print("Enter Choice : ");
+        String opt=Main.sc.nextLine();
+        switch(opt){
+            case "1":
+                // extendTenure(user_index);
+                break;
+            case "2":
+                // updateWallet(user_index);
+                break;
+            case "3":
+                // Vehicle.viewVehicleList();
+                break;
+            case "4":
+                Vehicle.searchVehicle();
+                userPage(user_index);
+                break;
+            case "5":
+                // viewTransactions(user_index);
+                break;
+            case "6":
+                login();
+                break;
+            default:
+            System.out.println("Invalid Choice !\nEnter Correct Option");
+            System.out.println("Press any key to continue......");
+            Main.sc.nextLine();
+            userPage(user_index);
+        }
     }
 
     static void forgetPassword(int user_index) {

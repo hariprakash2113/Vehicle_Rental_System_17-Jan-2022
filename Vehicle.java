@@ -217,9 +217,10 @@ public class Vehicle {
                 System.out.println("Number Plate String of the Car => " + cars.get(carName).get(i).numberPlate);
                 System.out.println("Total Kms Travelled => " + cars.get(carName).get(i).totKms);
                 System.out.println("No. of TImes Borrowed => " + cars.get(carName).get(i).borrowedCount);
+                System.out.println("Currently Available for Ride => " + (cars.get(carName).get(i).isAvailable ? "Yes" : "No"));
             }
         } else {
-            System.out.println("Bike with Name => " + carName + " not found !");
+            System.out.println("Car with Name => " + carName + " not found !");
         }
         if (count > 0)
             System.out.println("Cars Available at Present => " + count);
@@ -309,6 +310,7 @@ public class Vehicle {
                 System.out.println("Number Plate String of the Bike => " + bikes.get(bikeName).get(i).numberPlate);
                 System.out.println("Total Kms Travelled => " + bikes.get(bikeName).get(i).totKms);
                 System.out.println("No. of TImes Borrowed => " + bikes.get(bikeName).get(i).borrowedCount);
+                System.out.println("Currently Available for Ride => " + (bikes.get(bikeName).get(i).isAvailable ? "Yes" : "No"));
             }
         } else {
             System.out.println("Bike with Name => " + bikeName + " not found !");
