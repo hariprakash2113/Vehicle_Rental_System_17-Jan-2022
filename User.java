@@ -62,7 +62,7 @@ public class User {
         System.out.println("-----Customer Login-----");
         System.out.print("Enter Email or 0 to exit : ");
         String email = Main.sc.nextLine();
-        if(email.equals("0")){
+        if (email.equals("0")) {
             login();
         }
         int user_index = findUserInd(email);
@@ -98,8 +98,8 @@ public class User {
         System.out.println("    -> Enter 5 to view Transactions");
         System.out.println("    -> Enter 6 to Logout");
         System.out.print("Enter Choice : ");
-        String opt=Main.sc.nextLine();
-        switch(opt){
+        String opt = Main.sc.nextLine();
+        switch (opt) {
             case "1":
                 // extendTenure(user_index);
                 break;
@@ -116,31 +116,54 @@ public class User {
                 userPage(user_index);
                 break;
             case "5":
-                // viewTransactions(user_index);
+                viewTransactions(user_index);
+                userPage(user_index);
                 break;
             case "6":
                 login();
                 break;
             default:
-            System.out.println("Invalid Choice !\nEnter Correct Option");
-            System.out.println("Press any key to continue......");
-            Main.sc.nextLine();
-            userPage(user_index);
+                System.out.println("Invalid Choice !\nEnter Correct Option");
+                System.out.println("Press any key to continue......");
+                Main.sc.nextLine();
+                userPage(user_index);
         }
+    }
+
+    private static void viewTransactions(int user_index) {
+        System.out.print("\033[H\033[2J");
+        System.out.println("------Your Transacions-------");
+        System.out.println("============================================================================");
+        for (int index = 0; index < Main.transactions.size(); index++) {
+            if (Main.users.get(user_index).equals(Main.transactions.get(index).user)) {
+                System.out
+                        .println("Vehicle Type => " + Main.transactions.get(index).vehicle.getClass().getSimpleName());
+                System.out.println("Transaction Type => " + Main.transactions.get(index).transactionType);
+                System.out.println(
+                        "Transaction Done on => " + Main.transactions.get(index).dateOfTransaction.getDayOfMonth() + "/"
+                                + Main.transactions.get(index).dateOfTransaction.getMonthValue() + "/"
+                                + Main.transactions.get(index).dateOfTransaction.getYear());
+                System.out.println("Amount Paid => " + Main.transactions.get(index).amountPaid);
+                System.out.println("Payment Type => " + Main.transactions.get(index).paymentType);
+                System.out.println();
+            }
+        }
+        System.out.println("============================================================================");
+        System.out.println("Press any key to continue......");
+        Main.sc.nextLine();
     }
 
     public static void updateWallet(int user_index) {
         System.out.print("\033[H\033[2J");
         System.out.println("---------Wallet Actions---------");
-        System.out.println("Current Wallet Balance is Rs. => "+Main.users.get(user_index).wallet);
+        System.out.println("Current Wallet Balance is Rs. => " + Main.users.get(user_index).wallet);
         System.out.print("Enter Amount to be added (or) 0 to exit : ");
         Integer adder = Integer.parseInt(Main.sc.nextLine());
-        if(adder==0){
+        if (adder == 0) {
             return;
-        }
-        else{
-            Main.users.get(user_index).wallet+=adder;
-            System.out.println("Your Upated Balance is Rs. => "+Main.users.get(user_index).wallet);
+        } else {
+            Main.users.get(user_index).wallet += adder;
+            System.out.println("Your Upated Balance is Rs. => " + Main.users.get(user_index).wallet);
             System.out.println("Press any key to continue......");
             Main.sc.nextLine();
         }
@@ -153,7 +176,7 @@ public class User {
         System.out.println("Enter 2 to view List of Cars");
         System.out.println("Enter 3 to Exit");
         String s = Main.sc.nextLine();
-        switch(s){
+        switch (s) {
             case "1":
                 Vehicle.viewBikes();
                 viewVehicleList(user_index);

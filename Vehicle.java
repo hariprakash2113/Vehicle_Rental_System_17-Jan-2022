@@ -605,7 +605,7 @@ public class Vehicle {
                     bikes.get(bikeName).get(i).tenure++;
                     bikes.get(bikeName).get(i).borrowedCount++;
                     Main.users.get(user_index).borrows.add(bikes.get(bikeName).get(i));
-                    Main.transactions.add(new Transaction(bikes.get(bikeName).get(i), "Rent",
+                    Main.transactions.add(new Transaction(bikes.get(bikeName).get(i), "Rented",
                             Main.users.get(user_index), LocalDate.now(), "nil", 0, Main.admins.get(ind)));
                     System.out.printf("Bike %s has been issued to %s Successfully\n", bikeName,
                             Main.users.get(user_index).name);
