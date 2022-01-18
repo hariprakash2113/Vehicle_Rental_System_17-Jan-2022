@@ -627,4 +627,60 @@ public class Vehicle {
         }
     }
 
+    public static void removeVehicle() {
+        System.out.print("\033[H\033[2J");
+        System.out.println("-----Remove a vehicle-----");
+        System.out.println("Select Vehicle Type");
+        System.out.println("Enter 1 for Bike");
+        System.out.println("Enter 2 for Car");
+        System.out.println("Enter 3 to Exit");
+        System.out.print("Enter Choice : ");
+        String s = Main.sc.nextLine();
+        switch (s) {
+            case "1":
+                removeBike();
+                break;
+            case "2":
+                //removeCar();
+                break;
+            case "3":
+                return;
+            default:
+                System.out.println("Invalid Choice\nEnter Correct Option");
+                System.out.println("Press any key to continue......");
+                Main.sc.nextLine();
+                removeVehicle();
+        }
+    }
+
+    private static void removeBike() {
+        System.out.print("Enter Bike Number or 0 to Exit : ");
+        String numberPlate = Main.sc.nextLine();
+        if (numberPlate.equals("0")) {
+            return;
+        }
+        int bikeInd=-1;
+        Set<String> tp = bikes.keySet();
+        String keyind="";
+        t:for (String i : tp) {
+            keyind=i;
+            for (int j = 0; j < bikes.get(i).size(); j++) {
+                if (bikes.get(i).get(j).numberPlate.equals(numberPlate)) {
+                    bikeInd=j;
+                    break t;
+                }
+            }
+        }
+        if(bikeInd==-1){
+            System.out.println("Bike with "+numberPlate+" not Found !");
+            System.out.println("Press any key to continue......");
+            Main.sc.nextLine();
+            removeBike();
+        }
+        bikes.get(keyind).remove(bikeInd);
+        System.out.println("Bike has been Removed Successfully");
+        System.out.println("Press any key to continue......");
+        Main.sc.nextLine();
+    }
+
 }

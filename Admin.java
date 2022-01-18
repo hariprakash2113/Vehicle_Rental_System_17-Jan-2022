@@ -73,7 +73,8 @@ public class Admin {
                 adminPage(ind);
                 break;
             case 'c':
-                // Vehicle.removeVehicle(ind);
+                Vehicle.removeVehicle();
+                adminPage(ind);
                 break;
             case 'd':
                 addNewAdmin(ind);
