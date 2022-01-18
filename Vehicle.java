@@ -639,9 +639,11 @@ public class Vehicle {
         switch (s) {
             case "1":
                 removeBike();
+                removeVehicle();
                 break;
             case "2":
-                //removeCar();
+                removeCar();
+                removeVehicle();
                 break;
             case "3":
                 return;
@@ -651,6 +653,36 @@ public class Vehicle {
                 Main.sc.nextLine();
                 removeVehicle();
         }
+    }
+
+    private static void removeCar() {
+        System.out.print("Enter Car Number or 0 to Exit : ");
+        String numberPlate = Main.sc.nextLine();
+        if (numberPlate.equals("0")) {
+            return;
+        }
+        int carInd=-1;
+        Set<String> tp = cars.keySet();
+        String keyind="";
+        t:for (String i : tp) {
+            keyind=i;
+            for (int j = 0; j < cars.get(i).size(); j++) {
+                if (cars.get(i).get(j).numberPlate.equals(numberPlate)) {
+                    carInd=j;
+                    break t;
+                }
+            }
+        }
+        if(carInd==-1){
+            System.out.println("Car with "+numberPlate+" not Found !");
+            System.out.println("Press any key to continue......");
+            Main.sc.nextLine();
+            removeCar();
+        }
+        cars.get(keyind).remove(carInd);
+        System.out.println("Car has been Removed Successfully");
+        System.out.println("Press any key to continue......");
+        Main.sc.nextLine();
     }
 
     private static void removeBike() {
