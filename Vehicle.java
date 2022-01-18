@@ -12,26 +12,26 @@ public class Vehicle {
 
     static {
         ArrayList<Car> w = new ArrayList<>();
-        w.add(new Car("carName", "numberPlate", 4, Main.admins.get(0), 3000, 100000));
-        w.add(new Car("carName1", "numberPlate1", 4, Main.admins.get(0), 3000, 100000));
-        w.add(new Car("carName2", "numberPlate2", 4, Main.admins.get(0), 3000, 100000));
+        w.add(new Car("i20", "numberPlate", 4, Main.admins.get(0), 3000, 100000));
+        w.add(new Car("i20", "numberPlate1", 4, Main.admins.get(0), 3000, 100000));
+        w.add(new Car("i20", "numberPlate2", 4, Main.admins.get(0), 3000, 100000));
         cars.put("i20", w);
         ArrayList<Car> x = new ArrayList<>();
-        x.add(new Car("carName", "numberPlate", 4, Main.admins.get(0), 3000, 100000));
-        x.add(new Car("carName1", "numberPlate2", 4, Main.admins.get(0), 3000, 100000));
-        x.add(new Car("carName1", "numberPlate2", 4, Main.admins.get(0), 3000, 100000));
-        x.add(new Car("carName1", "numberPlate2", 4, Main.admins.get(0), 3000, 100000));
+        x.add(new Car("i10", "numberPlate", 4, Main.admins.get(0), 3000, 100000));
+        x.add(new Car("i10", "numberPlate2", 4, Main.admins.get(0), 3000, 100000));
+        x.add(new Car("i10", "numberPlate2", 4, Main.admins.get(0), 3000, 100000));
+        x.add(new Car("i10", "numberPlate2", 4, Main.admins.get(0), 3000, 100000));
         cars.put("i10", x);
         ArrayList<Bike> y = new ArrayList<>();
-        y.add(new Bike("bikeName", "numberPlate", Main.admins.get(0), 500, 500000));
-        y.add(new Bike("bikeName1", "numberPlate1", Main.admins.get(0), 500, 500000));
-        y.add(new Bike("bikeName1", "numberPlate2", Main.admins.get(0), 500, 500000));
-        y.add(new Bike("bikeName1", "numberPlate3", Main.admins.get(0), 500, 500000));
+        y.add(new Bike("apache", "numberPlate", Main.admins.get(0), 500, 500000));
+        y.add(new Bike("apache", "numberPlate1", Main.admins.get(0), 500, 500000));
+        y.add(new Bike("apache", "numberPlate2", Main.admins.get(0), 500, 500000));
+        y.add(new Bike("apache", "numberPlate3", Main.admins.get(0), 500, 500000));
         bikes.put("apache", y);
         ArrayList<Bike> z = new ArrayList<>();
-        z.add(new Bike("bikeName", "numberPlate", Main.admins.get(0), 500, 500000));
-        z.add(new Bike("bikeName1", "numberPlate1", Main.admins.get(0), 500, 500000));
-        z.add(new Bike("bikeName2", "numberPlate2", Main.admins.get(0), 500, 500000));
+        z.add(new Bike("sp125", "numberPlate", Main.admins.get(0), 500, 500000));
+        z.add(new Bike("sp125", "numberPlate1", Main.admins.get(0), 500, 500000));
+        z.add(new Bike("sp125", "numberPlate2", Main.admins.get(0), 500, 500000));
         bikes.put("sp125", z);
     }
 
@@ -585,7 +585,7 @@ public class Vehicle {
             Main.sc.nextLine();
             return;
         }
-        if(Main.users.get(user_index).borrows.size()!=0){
+        if (Main.users.get(user_index).borrows.size() != 0) {
             if ((Main.users.get(user_index).borrows.get(0)) instanceof Bike) {
                 System.out.println("You can rent at most 1 Bike at a time");
                 System.out.println("Press any key to continue......");
@@ -595,7 +595,7 @@ public class Vehicle {
         }
         System.out.print("Enter Bike Name or 0 to Exit : ");
         String bikeName = Main.sc.nextLine();
-        if(bikeName.equals("0")){
+        if (bikeName.equals("0")) {
             return;
         }
         if (bikes.get(bikeName) != null) {
@@ -614,13 +614,12 @@ public class Vehicle {
                     return;
                 }
             }
-            System.out.println("Bike "+bikeName+" not available Currently !\nFeel free to Borrow Other Bikes");
+            System.out.println("Bike " + bikeName + " not available Currently !\nFeel free to Borrow Other Bikes");
             System.out.println("Press any key to continue......");
             Main.sc.nextLine();
             issueBike(ind, user_index);
-        }
-        else{
-            System.out.println("Bike "+bikeName+" not found !");
+        } else {
+            System.out.println("Bike " + bikeName + " not found !");
             System.out.println("Press any key to continue......");
             Main.sc.nextLine();
             issueBike(ind, user_index);
@@ -661,20 +660,20 @@ public class Vehicle {
         if (numberPlate.equals("0")) {
             return;
         }
-        int carInd=-1;
+        int carInd = -1;
         Set<String> tp = cars.keySet();
-        String keyind="";
-        t:for (String i : tp) {
-            keyind=i;
+        String keyind = "";
+        t: for (String i : tp) {
+            keyind = i;
             for (int j = 0; j < cars.get(i).size(); j++) {
                 if (cars.get(i).get(j).numberPlate.equals(numberPlate)) {
-                    carInd=j;
+                    carInd = j;
                     break t;
                 }
             }
         }
-        if(carInd==-1){
-            System.out.println("Car with "+numberPlate+" not Found !");
+        if (carInd == -1) {
+            System.out.println("Car with " + numberPlate + " not Found !");
             System.out.println("Press any key to continue......");
             Main.sc.nextLine();
             removeCar();
@@ -691,20 +690,20 @@ public class Vehicle {
         if (numberPlate.equals("0")) {
             return;
         }
-        int bikeInd=-1;
+        int bikeInd = -1;
         Set<String> tp = bikes.keySet();
-        String keyind="";
-        t:for (String i : tp) {
-            keyind=i;
+        String keyind = "";
+        t: for (String i : tp) {
+            keyind = i;
             for (int j = 0; j < bikes.get(i).size(); j++) {
                 if (bikes.get(i).get(j).numberPlate.equals(numberPlate)) {
-                    bikeInd=j;
+                    bikeInd = j;
                     break t;
                 }
             }
         }
-        if(bikeInd==-1){
-            System.out.println("Bike with "+numberPlate+" not Found !");
+        if (bikeInd == -1) {
+            System.out.println("Bike with " + numberPlate + " not Found !");
             System.out.println("Press any key to continue......");
             Main.sc.nextLine();
             removeBike();
@@ -713,6 +712,44 @@ public class Vehicle {
         System.out.println("Bike has been Removed Successfully");
         System.out.println("Press any key to continue......");
         Main.sc.nextLine();
+    }
+
+    public static void returnVehicle(int ind) {
+        System.out.print("\033[H\033[2J");
+        System.out.print("Enter Customer's Email or 0 to exit : ");
+        String email = Main.sc.nextLine();
+        int user_index = User.findUserInd(email);
+        if (user_index == -1) {
+            System.out.println("User not Found !");
+            System.out.println("Press any key to continue......");
+            Main.sc.nextLine();
+            returnVehicle(ind);
+        }
+        if (Main.users.get(user_index).borrows.isEmpty()) {
+            System.out.println("You Haven't Borrowed any Vehicles yet !");
+            System.out.println("Press any key to continue......");
+            Main.sc.nextLine();
+            return;
+        }
+        if (Main.users.get(user_index).borrows.size() == 1) {
+            String x = Main.users.get(user_index).borrows.get(0).getClass().getName();
+            if (Main.users.get(user_index).borrows.get(0) instanceof Bike) {
+                Bike k = (Bike) Main.users.get(user_index).borrows.remove(0);
+                
+                Vehicle.bikes.get(k.bikeName).remove(k);
+                Main.transactions.add(new Transaction(k, "Vehicle Lost", Main.users.get(user_index), LocalDate.now(),
+                        "Cash", k.priceOfBike, Main.admins.get(ind)));
+            } else {
+                Car k = (Car) Main.users.get(user_index).borrows.remove(0);
+                Vehicle.cars.get(k.carName).remove(k);
+                Main.transactions.add(new Transaction(k, "Vehicle Lost", Main.users.get(user_index), LocalDate.now(),
+                        "Cash", k.priceOfCar, Main.admins.get(ind)));
+            }
+            System.out.println(x + " has been returned successfully & amount is debited from the user's Wallet");
+            System.out.println("Press any key to continue......");
+            Main.sc.nextLine();
+        }
+        
     }
 
 }

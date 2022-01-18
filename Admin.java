@@ -3,13 +3,12 @@ public class Admin {
     String name;
     String email;
     String password;
-    
+
     public Admin(String name, String email, String password) {
         this.name = name;
         this.email = email;
         this.password = password;
     }
-
 
     static void login() {
         System.out.print("\033[H\033[2J");
@@ -21,7 +20,8 @@ public class Admin {
         int ind = -1;
         for (int i = 0; i < Main.admins.size(); i++) {
             if (Main.admins.get(i).email.equals(email)) {
-                ind = i;break;
+                ind = i;
+                break;
             }
         }
         if (ind == -1) {
@@ -46,22 +46,39 @@ public class Admin {
     static void adminPage(int ind) {
         System.out.print("\033[H\033[2J");
         System.out.printf("----Welcome , %s -----\n", Main.admins.get(ind).name);
+        System.out.println();
         System.out.println("Please Select an option");
+        System.out.println();
         System.out.println("    -> Enter a for Adding a Vehicle");
+        System.out.println();
         System.out.println("    -> Enter b to Modify Vehicle`s Rent per Day");
+        System.out.println();
         System.out.println("    -> Enter c for Removing a vehicle");
+        System.out.println();
         System.out.println("    -> Enter d to Add a admin");
+        System.out.println();
         System.out.println("    -> Enter e to view List of Bikes");
+        System.out.println();
         System.out.println("    -> Enter f to view List of Cars");
+        System.out.println();
         System.out.println("    -> Enter g to search a Vehicle");
+        System.out.println();
         System.out.println("    -> Enter h to Issue a Vehicle");
+        System.out.println();
         System.out.println("    -> Enter i to Return a Vehicle");
-        System.out.println("    -> Enter j to put Fine on Customer");
+        System.out.println();
+        System.out.println("    -> Enter j to put Fine on Customer for Loss of Vehicle");
+        System.out.println();
         System.out.println("    -> Enter k to View list of vehicles Waiting for Service");
+        System.out.println();
         System.out.println("    -> Enter l to Change Security Deposit Amount of User");
+        System.out.println();
         System.out.println("    -> Enter m to Generate reports");
+        System.out.println();
         System.out.println("    -> Enter n to change your password");
+        System.out.println();
         System.out.println("    -> Enter 0 to Logout");
+        System.out.println();
         System.out.print("Enter Choice : ");
         char c = Main.sc.nextLine().charAt(0);
         switch (c) {
@@ -96,15 +113,15 @@ public class Admin {
                 adminPage(ind);
                 break;
             case 'i':
-                //Vehicle.returnVehicle();
+                Vehicle.returnVehicle(ind);
                 adminPage(ind);
                 break;
             case 'j':
-                //User.putFine();
+                User.putFine(ind);
                 adminPage(ind);
                 break;
             case 'k':
-                //Vehicle.serviceList();
+                // Vehicle.serviceList();
                 adminPage(ind);
                 break;
             case 'l':
@@ -135,7 +152,6 @@ public class Admin {
         String email = Main.sc.nextLine();
         User.updateWallet(User.findUserInd(email));
     }
-
 
     static void changePassword(int ind) {
         System.out.print("\033[H\033[2J");
@@ -170,11 +186,11 @@ public class Admin {
         String email = Main.sc.nextLine();
         System.out.print("Enter Password of New Admin : ");
         String password = Main.sc.nextLine();
-        Main.admins.add(new Admin(name, email,password));
+        Main.admins.add(new Admin(name, email, password));
         System.out.printf("Admin %s has been Successfully Added\n", name);
         System.out.println("Enter 1 to add one another Admin else any other key for returing to to Admin page");
-        String n =Main.sc.nextLine();
-        if (n .equals("1")) {
+        String n = Main.sc.nextLine();
+        if (n.equals("1")) {
             addNewAdmin(ind);
         } else {
             adminPage(ind);

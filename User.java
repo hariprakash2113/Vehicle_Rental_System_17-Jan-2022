@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -338,4 +339,39 @@ public class User {
         login();
     }
 
+    public static void putFine(int ind) {
+        System.out.print("\033[H\033[2J");
+        System.out.print("Enter Customer's Email or 0 to exit : ");
+        String email = Main.sc.nextLine();
+        int user_index = findUserInd(email);
+        if (user_index == -1) {
+            System.out.println("User not Found !");
+            System.out.println("Press any key to continue......");
+            Main.sc.nextLine();
+            putFine(ind);
+        }
+        if (Main.users.get(user_index).borrows.isEmpty()) {
+            System.out.println("You Haven't Borrowed any Vehicles yet !");
+            System.out.println("Press any key to continue......");
+            Main.sc.nextLine();
+            return;
+        }
+        if (Main.users.get(user_index).borrows.size() == 1) {
+            String x = Main.users.get(user_index).borrows.get(0).getClass().getName();
+            if (Main.users.get(user_index).borrows.get(0) instanceof Bike) {
+                Bike k = (Bike) Main.users.get(user_index).borrows.remove(0);
+                Vehicle.bikes.get(k.bikeName).remove(k);
+                Main.transactions.add(new Transaction(k, "Vehicle Lost", Main.users.get(user_index), LocalDate.now(),
+                        "Cash", k.priceOfBike, Main.admins.get(ind)));
+            } else {
+                Car k = (Car) Main.users.get(user_index).borrows.remove(0);
+                Vehicle.cars.get(k.carName).remove(k);
+                Main.transactions.add(new Transaction(k, "Vehicle Lost", Main.users.get(user_index), LocalDate.now(),
+                        "Cash", k.priceOfCar, Main.admins.get(ind)));
+            }
+            System.out.println(x + " has been removed successfully & Fine amount is collected from the user");
+            System.out.println("Press any key to continue......");
+            Main.sc.nextLine();
+        }
+    }
 }
