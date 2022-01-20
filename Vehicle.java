@@ -921,9 +921,9 @@ public class Vehicle {
                     System.out.println("Total Kms Travelled => " + cars.get(i).get(j).totKms);
                     System.out.println("No. of Times Borrowed => " + cars.get(i).get(j).borrowedCount);
                     System.out.println("Enter 1 to change Service Status Else any other key to continue");
-                    if(Main.sc.nextLine().equals("1")){
-                        cars.get(i).get(j).isServiced=true;
-                        cars.get(i).get(j).isAvailable=true;
+                    if (Main.sc.nextLine().equals("1")) {
+                        cars.get(i).get(j).isServiced = true;
+                        cars.get(i).get(j).isAvailable = true;
                         System.out.println("Service Status of Car has been changed");
                     }
                     System.out.println("Press any key to continue......");
@@ -952,13 +952,69 @@ public class Vehicle {
                     System.out.println("Total Kms Travelled => " + bikes.get(i).get(j).totKms);
                     System.out.println("No. of Times Borrowed => " + bikes.get(i).get(j).borrowedCount);
                     System.out.println("Enter 1 to change Service Status Else any other key to continue");
-                    if(Main.sc.nextLine().equals("1")){
-                        bikes.get(i).get(j).isServiced=true;
-                        bikes.get(i).get(j).isAvailable=true;
+                    if (Main.sc.nextLine().equals("1")) {
+                        bikes.get(i).get(j).isServiced = true;
+                        bikes.get(i).get(j).isAvailable = true;
                         System.out.println("Service Status of bike has been changed");
                     }
                     System.out.println("Press any key to continue......");
                     Main.sc.nextLine();
+                }
+            }
+        }
+        System.out.println("=x=x=x=x=x==xx=x=x=x >> End of List << =x=x=x=x=x=x=x=x=x=x==xx==");
+        System.out.println();
+        System.out.println("Press any key to continue......");
+        Main.sc.nextLine();
+    }
+
+    public static void generateReport(int ind) {
+        System.out.print("\033[H\033[2J");
+        System.out.println("Enter 1 to view List of Non borrowed bikes");
+        System.out.println("Enter 2 to view List of Highly borrowed bikes");
+        System.out.println("Enter 3 to view List of Non borrowed cars");
+        System.out.println("Enter 4 to view List of Highly borrowed cars");
+        System.out.println("Enter 5 to Exit");
+        String opt = Main.sc.nextLine();
+        switch (opt) {
+            case "1":
+                showunrentedBikes();
+                generateReport(ind);
+                break;
+            case "2":
+                showHighlyRentedBikes();
+                generateReport(ind);
+                break;
+            case "3":
+                showunrentedCars();
+                generateReport(ind);
+                break;
+            case "4":
+                showHighlyRentedCars();
+                generateReport(ind);
+                break;
+            case "5":
+                return;
+            default:
+                System.out.println("Invalid Choice\nEnter Correct Option");
+                System.out.println("Press any key to continue......");
+                Main.sc.nextLine();
+                removeVehicle();
+        }
+
+    }
+
+    private static void showunrentedBikes() {
+        System.out.print("\033[H\033[2J");
+        System.out.println("-------Non-Borrowed List of Bikes--------");
+        Set<String> keys = bikes.keySet();
+        for (String i : keys) {
+            System.out.println("Name of the Bike => " + i);
+            System.out.println("Rent Per Day => " + bikes.get(i).get(0).rentPerDay);
+            System.out.println("==================================================================");
+            for (int j = 0; j < bikes.get(i).size(); j++, System.out.println()) {
+                if (bikes.get(i).get(j).borrowedCount == 0) {
+                    System.out.println("Number Plate String of the Bike => " + bikes.get(i).get(j).numberPlate);
                 }
             }
         }

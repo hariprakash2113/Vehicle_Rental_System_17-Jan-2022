@@ -129,7 +129,8 @@ public class Admin {
                 adminPage(ind);
                 break;
             case 'm':
-                // Vehicle.generateReport(ind);
+                Vehicle.generateReport(ind);
+                adminPage(ind);
                 break;
             case 'n':
                 changePassword(ind);
