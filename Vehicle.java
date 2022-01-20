@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.TreeSet;
 
 public class Vehicle {
 
@@ -563,7 +564,7 @@ public class Vehicle {
                 issueVehicle(ind, user_index);
                 break;
             case "2":
-                // issueCar(ind,user_index);
+                issueCar(ind, user_index);
                 issueVehicle(ind, user_index);
                 break;
             case "3":
@@ -573,6 +574,56 @@ public class Vehicle {
                 System.out.println("Press any key to continue......");
                 Main.sc.nextLine();
                 issueVehicle(ind, user_index);
+        }
+    }
+
+    private static void issueCar(int ind, int user_index) {
+        System.out.print("\033[H\033[2J");
+        System.out.println("-----Issue Car-----");
+        if (Main.users.get(user_index).borrows.size() >= 2) {
+            System.out.println("You can borrow two vechicles at a time (1 car + 1 Bike)");
+            System.out.println("Press any key to continue......");
+            Main.sc.nextLine();
+            return;
+        }
+        if (Main.users.get(user_index).borrows.size() != 0) {
+            if ((Main.users.get(user_index).borrows.get(0)) instanceof Car) {
+                System.out.println("You can rent at most 1 Car at a time");
+                System.out.println("Press any key to continue......");
+                Main.sc.nextLine();
+                return;
+            }
+        }
+        System.out.print("Enter Car Name or 0 to Exit : ");
+        String carName = Main.sc.nextLine();
+        if (carName.equals("0")) {
+            return;
+        }
+        if (cars.get(carName) != null) {
+            for (int i = 0; i < cars.get(carName).size(); i++) {
+                if (cars.get(carName).get(i).isAvailable && cars.get(carName).get(i).isServiced) {
+                    cars.get(carName).get(i).isAvailable = false;
+                    cars.get(carName).get(i).tenure++;
+                    cars.get(carName).get(i).borrowedCount++;
+                    Main.users.get(user_index).borrows.add(cars.get(carName).get(i));
+                    Main.transactions.add(new Transaction(cars.get(carName).get(i), "Rented",
+                            Main.users.get(user_index), LocalDate.now(), "nil", 0, Main.admins.get(ind)));
+                    System.out.printf("Bike %s has been issued to %s Successfully\n", carName,
+                            Main.users.get(user_index).name);
+                    System.out.println("Press any key to continue......");
+                    Main.sc.nextLine();
+                    return;
+                }
+            }
+            System.out.println("Bike " + carName + " not available Currently !\nFeel free to Borrow Other Bikes");
+            System.out.println("Press any key to continue......");
+            Main.sc.nextLine();
+            issueBike(ind, user_index);
+        } else {
+            System.out.println("Bike " + carName + " not found !");
+            System.out.println("Press any key to continue......");
+            Main.sc.nextLine();
+            issueBike(ind, user_index);
         }
     }
 
@@ -732,24 +783,188 @@ public class Vehicle {
             return;
         }
         if (Main.users.get(user_index).borrows.size() == 1) {
-            String x = Main.users.get(user_index).borrows.get(0).getClass().getName();
-            if (Main.users.get(user_index).borrows.get(0) instanceof Bike) {
-                Bike k = (Bike) Main.users.get(user_index).borrows.remove(0);
-                
-                Vehicle.bikes.get(k.bikeName).remove(k);
-                Main.transactions.add(new Transaction(k, "Vehicle Lost", Main.users.get(user_index), LocalDate.now(),
-                        "Cash", k.priceOfBike, Main.admins.get(ind)));
-            } else {
-                Car k = (Car) Main.users.get(user_index).borrows.remove(0);
-                Vehicle.cars.get(k.carName).remove(k);
-                Main.transactions.add(new Transaction(k, "Vehicle Lost", Main.users.get(user_index), LocalDate.now(),
-                        "Cash", k.priceOfCar, Main.admins.get(ind)));
+            returnit(user_index, 0, ind);
+        } else {
+            System.out.println("Enter 1 to remove " + Main.users.get(user_index).borrows.get(0).getClass().getName());
+            System.out.println("Enter 2 to remove " + Main.users.get(user_index).borrows.get(1).getClass().getName());
+            System.out.println("Enter 3 to Exit");
+            String opt = Main.sc.nextLine();
+            switch (opt) {
+                case "1":
+                    returnit(user_index, Integer.parseInt(opt) - 1, ind);
+                    returnVehicle(ind);
+                    break;
+                case "2":
+                    returnit(user_index, Integer.parseInt(opt) - 1, ind);
+                    break;
+                case "3":
+                    return;
+                default:
+                    System.out.println("Invalid Choice\nEnter Correct Option");
+                    System.out.println("Press any key to continue......");
+                    Main.sc.nextLine();
+                    removeVehicle();
             }
+        }
+
+    }
+
+    private static void returnit(int user_index, int i, int ind) {
+        String x = Main.users.get(user_index).borrows.get(i).getClass().getName();
+        if (Main.users.get(user_index).borrows.get(i) instanceof Bike) {
+            Bike k = (Bike) Main.users.get(user_index).borrows.get(i);
+            System.out.print("Enter no.of Kms bike travelled : ");
+            int kms = Integer.parseInt(Main.sc.nextLine()), pdl = 500;
+            double amt = 0;
+            if (Vehicle.bikes.get(k.bikeName).get(Vehicle.bikes.get(k.bikeName).indexOf(k)).tenure
+                    * kms > (Vehicle.bikes.get(k.bikeName).get(Vehicle.bikes.get(k.bikeName).indexOf(k)).tenure)
+                            * pdl) {
+                amt = (Vehicle.bikes.get(k.bikeName).get(Vehicle.bikes.get(k.bikeName).indexOf(k)).rentPerDay
+                        * Vehicle.bikes.get(k.bikeName).get(Vehicle.bikes.get(k.bikeName).indexOf(k)).tenure)
+                        + (Vehicle.bikes.get(k.bikeName).get(Vehicle.bikes.get(k.bikeName).indexOf(k)).rentPerDay
+                                * Vehicle.bikes.get(k.bikeName)
+                                        .get(Vehicle.bikes.get(k.bikeName).indexOf(k)).tenure)
+                                * (0.15);
+            } else {
+                amt = Vehicle.bikes.get(k.bikeName).get(Vehicle.bikes.get(k.bikeName).indexOf(k)).rentPerDay
+                        * Vehicle.bikes.get(k.bikeName).get(Vehicle.bikes.get(k.bikeName).indexOf(k)).tenure;
+            }
+
+            Main.transactions.add(new Transaction(k, "Vehicle Lost", Main.users.get(user_index), LocalDate.now(),
+                    "Cash",
+                    (int) amt,
+                    Main.admins.get(ind)));
+            Vehicle.bikes.get(k.bikeName).get(Vehicle.bikes.get(k.bikeName).indexOf(k)).tenure = 0;
+            Vehicle.bikes.get(k.bikeName).get(Vehicle.bikes.get(k.bikeName).indexOf(k)).serviceKms += kms;
+            Vehicle.bikes.get(k.bikeName).get(Vehicle.bikes.get(k.bikeName).indexOf(k)).totKms += kms;
+            if (Vehicle.bikes.get(k.bikeName).get(Vehicle.bikes.get(k.bikeName).indexOf(k)).serviceKms > 1500) {
+                Vehicle.bikes.get(k.bikeName).get(Vehicle.bikes.get(k.bikeName).indexOf(k)).isServiced = false;
+                Vehicle.bikes.get(k.bikeName).get(Vehicle.bikes.get(k.bikeName).indexOf(k)).isAvailable = false;
+            }
+            Vehicle.bikes.get(k.bikeName).get(Vehicle.bikes.get(k.bikeName).indexOf(k)).isAvailable = true;
+
+        } else {
+            Car k = (Car) Main.users.get(user_index).borrows.get(i);
+            System.out.print("Enter no.of Kms bike travelled : ");
+            int kms = Integer.parseInt(Main.sc.nextLine()), pdl = 500;
+            double amt = 0;
+            if (Vehicle.cars.get(k.carName).get(Vehicle.cars.get(k.carName).indexOf(k)).tenure
+                    * kms > (Vehicle.cars.get(k.carName).get(Vehicle.cars.get(k.carName).indexOf(k)).tenure)
+                            * pdl) {
+                amt = (Vehicle.cars.get(k.carName).get(Vehicle.cars.get(k.carName).indexOf(k)).rentPerDay
+                        * Vehicle.cars.get(k.carName).get(Vehicle.cars.get(k.carName).indexOf(k)).tenure)
+                        + (Vehicle.cars.get(k.carName).get(Vehicle.cars.get(k.carName).indexOf(k)).rentPerDay
+                                * Vehicle.cars.get(k.carName).get(Vehicle.cars.get(k.carName).indexOf(k)).tenure)
+                                * (0.15);
+            } else {
+                amt = Vehicle.cars.get(k.carName).get(Vehicle.cars.get(k.carName).indexOf(k)).rentPerDay
+                        * Vehicle.cars.get(k.carName).get(Vehicle.cars.get(k.carName).indexOf(k)).tenure;
+
+                Main.transactions
+                        .add(new Transaction(k, "Vehicle Lost", Main.users.get(user_index), LocalDate.now(),
+                                "Cash",
+                                (int) amt,
+                                Main.admins.get(ind)));
+                Vehicle.cars.get(k.carName).get(Vehicle.cars.get(k.carName).indexOf(k)).tenure = 0;
+                Vehicle.cars.get(k.carName).get(Vehicle.cars.get(k.carName).indexOf(k)).serviceKms += kms;
+                Vehicle.cars.get(k.carName).get(Vehicle.cars.get(k.carName).indexOf(k)).totKms += kms;
+                if (Vehicle.cars.get(k.carName).get(Vehicle.cars.get(k.carName).indexOf(k)).serviceKms > 1500) {
+                    Vehicle.cars.get(k.carName).get(Vehicle.cars.get(k.carName).indexOf(k)).isServiced = false;
+                    Vehicle.cars.get(k.carName).get(Vehicle.cars.get(k.carName).indexOf(k)).isAvailable = false;
+                }
+                Vehicle.cars.get(k.carName).get(Vehicle.cars.get(k.carName).indexOf(k)).isAvailable = true;
+            }
+            Main.users.get(user_index).borrows.remove(i);
             System.out.println(x + " has been returned successfully & amount is debited from the user's Wallet");
             System.out.println("Press any key to continue......");
             Main.sc.nextLine();
         }
-        
     }
 
+    public static void serviceList() {
+        System.out.print("\033[H\033[2J");
+        System.out.println("Enter 1 to view Service list of Bikes");
+        System.out.println("Enter 2 to view Service list of Cars");
+        System.out.println("Enter 3 to Exit");
+        String opt = Main.sc.nextLine();
+        switch (opt) {
+            case "1":
+                showServiceBikes();
+                serviceList();
+                break;
+            case "2":
+                showServiceCars();
+                serviceList();
+                break;
+            case "3":
+                return;
+            default:
+                System.out.println("Invalid Choice\nEnter Correct Option");
+                System.out.println("Press any key to continue......");
+                Main.sc.nextLine();
+                removeVehicle();
+        }
+    }
+
+    private static void showServiceCars() {
+        System.out.print("\033[H\033[2J");
+        System.out.println("-------Service List of Cars--------");
+        Set<String> keys = cars.keySet();
+        for (String i : keys) {
+            System.out.println("Name of the Car => " + i);
+            System.out.println("Total Cars in Garage => " + cars.get(i).size());
+            System.out.println("Rent Per Day => " + cars.get(i).get(0).rentPerDay);
+            System.out.println("==================================================================");
+            for (int j = 0; j < cars.get(i).size(); j++, System.out.println()) {
+                if (cars.get(i).get(j).isServiced != true) {
+                    System.out.println("Number Plate String of the Car => " + cars.get(i).get(j).numberPlate);
+                    System.out.println("Total Kms Travelled => " + cars.get(i).get(j).totKms);
+                    System.out.println("No. of Times Borrowed => " + cars.get(i).get(j).borrowedCount);
+                    System.out.println("Enter 1 to change Service Status Else any other key to continue");
+                    if(Main.sc.nextLine().equals("1")){
+                        cars.get(i).get(j).isServiced=true;
+                        cars.get(i).get(j).isAvailable=true;
+                        System.out.println("Service Status of Car has been changed");
+                    }
+                    System.out.println("Press any key to continue......");
+                    Main.sc.nextLine();
+                }
+            }
+        }
+        System.out.println("=x=x=x=x=x==xx=x=x=x >> End of List << =x=x=x=x=x=x=x=x=x=x==xx==");
+        System.out.println();
+        System.out.println("Press any key to continue......");
+        Main.sc.nextLine();
+    }
+
+    private static void showServiceBikes() {
+        System.out.print("\033[H\033[2J");
+        System.out.println("-------Service List of Bikes--------");
+        Set<String> keys = bikes.keySet();
+        for (String i : keys) {
+            System.out.println("Name of the Bike => " + i);
+            System.out.println("Total Bikes in Garage => " + bikes.get(i).size());
+            System.out.println("Rent Per Day => " + bikes.get(i).get(0).rentPerDay);
+            System.out.println("==================================================================");
+            for (int j = 0; j < bikes.get(i).size(); j++, System.out.println()) {
+                if (bikes.get(i).get(j).isServiced != true) {
+                    System.out.println("Number Plate String of the Bike => " + bikes.get(i).get(j).numberPlate);
+                    System.out.println("Total Kms Travelled => " + bikes.get(i).get(j).totKms);
+                    System.out.println("No. of Times Borrowed => " + bikes.get(i).get(j).borrowedCount);
+                    System.out.println("Enter 1 to change Service Status Else any other key to continue");
+                    if(Main.sc.nextLine().equals("1")){
+                        bikes.get(i).get(j).isServiced=true;
+                        bikes.get(i).get(j).isAvailable=true;
+                        System.out.println("Service Status of bike has been changed");
+                    }
+                    System.out.println("Press any key to continue......");
+                    Main.sc.nextLine();
+                }
+            }
+        }
+        System.out.println("=x=x=x=x=x==xx=x=x=x >> End of List << =x=x=x=x=x=x=x=x=x=x==xx==");
+        System.out.println();
+        System.out.println("Press any key to continue......");
+        Main.sc.nextLine();
+    }
 }

@@ -7,6 +7,7 @@ public class Bike {
     Integer rentPerDay=0;
     Integer priceOfBike=0;
     Integer tenure=0;
+    
     Integer serviceKms = 1500;
     Boolean isServiced = true;
     Admin addedBy;

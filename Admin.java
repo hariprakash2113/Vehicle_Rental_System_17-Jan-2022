@@ -69,7 +69,7 @@ public class Admin {
         System.out.println();
         System.out.println("    -> Enter j to put Fine on Customer for Loss of Vehicle");
         System.out.println();
-        System.out.println("    -> Enter k to View list of vehicles Waiting for Service");
+        System.out.println("    -> Enter k to View/Change status of list of vehicles Waiting for Service");
         System.out.println();
         System.out.println("    -> Enter l to Change Security Deposit Amount of User");
         System.out.println();
@@ -121,7 +121,7 @@ public class Admin {
                 adminPage(ind);
                 break;
             case 'k':
-                // Vehicle.serviceList();
+                Vehicle.serviceList();
                 adminPage(ind);
                 break;
             case 'l':
