@@ -1004,6 +1004,66 @@ public class Vehicle {
 
     }
 
+    private static void showHighlyRentedCars() {
+        System.out.print("\033[H\033[2J");
+        System.out.println("-------Highly-Borrowed List of Bikes--------");
+        Set<String> keys = cars.keySet();
+        for (String i : keys) {
+            System.out.println("Name of the Car => " + i);
+            System.out.println("Rent Per Day => " + cars.get(i).get(0).rentPerDay);
+            System.out.println("==================================================================");
+            for (int j = 0; j < cars.get(i).size(); j++, System.out.println()) {
+                if (cars.get(i).get(j).borrowedCount != 0) {
+                    System.out.println("Number Plate String of the Car => " + cars.get(i).get(j).numberPlate);
+                }
+            }
+        }
+        System.out.println("=x=x=x=x=x==xx=x=x=x >> End of List << =x=x=x=x=x=x=x=x=x=x==xx==");
+        System.out.println();
+        System.out.println("Press any key to continue......");
+        Main.sc.nextLine();
+    }
+
+    private static void showHighlyRentedBikes() {
+        System.out.print("\033[H\033[2J");
+        System.out.println("-------Highly borrowed List of Bikes--------");
+        Set<String> keys = bikes.keySet();
+        for (String i : keys) {
+            System.out.println("Name of the Bike => " + i);
+            System.out.println("Rent Per Day => " + bikes.get(i).get(0).rentPerDay);
+            System.out.println("==================================================================");
+            for (int j = 0; j < bikes.get(i).size(); j++, System.out.println()) {
+                if (bikes.get(i).get(j).borrowedCount != 0) {
+                    System.out.println("Number Plate String of the Bike => " + bikes.get(i).get(j).numberPlate);
+                }
+            }
+        }
+        System.out.println("=x=x=x=x=x==xx=x=x=x >> End of List << =x=x=x=x=x=x=x=x=x=x==xx==");
+        System.out.println();
+        System.out.println("Press any key to continue......");
+        Main.sc.nextLine();
+    }
+
+    private static void showunrentedCars() {
+        System.out.print("\033[H\033[2J");
+        System.out.println("-------Non-Borrowed List of Cars--------");
+        Set<String> keys = cars.keySet();
+        for (String i : keys) {
+            System.out.println("Name of the Car => " + i);
+            System.out.println("Rent Per Day => " + cars.get(i).get(0).rentPerDay);
+            System.out.println("==================================================================");
+            for (int j = 0; j < bikes.get(i).size(); j++, System.out.println()) {
+                if (cars.get(i).get(j).borrowedCount == 0) {
+                    System.out.println("Number Plate String of the car => " + cars.get(i).get(j).numberPlate);
+                }
+            }
+        }
+        System.out.println("=x=x=x=x=x==xx=x=x=x >> End of List << =x=x=x=x=x=x=x=x=x=x==xx==");
+        System.out.println();
+        System.out.println("Press any key to continue......");
+        Main.sc.nextLine();
+    }
+
     private static void showunrentedBikes() {
         System.out.print("\033[H\033[2J");
         System.out.println("-------Non-Borrowed List of Bikes--------");
